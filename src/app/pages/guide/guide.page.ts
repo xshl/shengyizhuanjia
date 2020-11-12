@@ -13,7 +13,7 @@ export class GuidePage implements OnInit {
 
   ngOnInit() {
   }
-  onSlideWillChange(event: any) {
+  onSlideWillChange(event: Event) {
     console.log(event);
     this.slides.isEnd().then((end) => {
       this.showSkip = !end;
