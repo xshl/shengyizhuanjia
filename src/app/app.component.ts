@@ -25,3 +25,5 @@ export class AppComponent {
     });
   }
 }
+
+export const APP_KEY = 'App';
