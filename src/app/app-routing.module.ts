@@ -1,3 +1,4 @@
+import { StartAppGuard } from './core/start-app.guard';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
@@ -8,12 +9,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
     path: 'guide',
-    loadChildren: () => import('./pages/guide/guide.module').then( m => m.GuidePageModule)
+    loadChildren: () => import('./pages/guide/guide.module').then( m => m.GuidePageModule),
+    canActivate: [StartAppGuard]
   }
 ];
 @NgModule({
