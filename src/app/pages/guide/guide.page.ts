@@ -22,4 +22,9 @@ export class GuidePage implements OnInit {
       this.showSkip = !end;
     });
   }
+
+  onSkip(){
+    this.router.navigateByUrl('/passport/signup');
+  }
 }
+export const APP_KEY = 'App';

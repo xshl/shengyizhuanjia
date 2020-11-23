@@ -7,12 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { GuidePageRoutingModule } from './guide-routing.module';
 
 import { GuidePage } from './guide.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
+    SharedModule,
     GuidePageRoutingModule
   ],
   declarations: [GuidePage]

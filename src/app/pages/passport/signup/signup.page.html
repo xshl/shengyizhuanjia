@@ -1,0 +1,71 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button text="返回" color=""></ion-back-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-text-center">
+    <img class="logo" src="../../../assets/img/signup/logo.png" alt="">
+  </div>
+  <ion-grid style="margin-top: 3%; width: 85%;">
+    <ion-row>
+      <ion-col>
+        <img src="../../../assets/img/signup/registered_one.png" alt="" *ngIf='slideIndex !== 0'>
+        <img src="../../../assets/img/signup/registered_one_one.png" alt="" *ngIf='slideIndex === 0'>
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <hr>
+      </ion-col>
+      <ion-col>
+        <img src="../../../assets/img/signup/registered_two.png" alt="" *ngIf='slideIndex !== 1'>
+        <img src="../../../assets/img/signup/registered_two_two.png" alt="" *ngIf='slideIndex === 1'> 
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <hr>
+      </ion-col>
+      <ion-col>
+        <img src="../../../assets/img/signup/registered_three.png" alt="" *ngIf='slideIndex !== 2'>
+        <img src="../../../assets/img/signup/registered_three_three.png" alt="" *ngIf='slideIndex === 2'>
+      </ion-col>
+      <ion-col class="ion-align-self-center">
+        <hr>
+      </ion-col>
+      <ion-col>
+        <img src="../../../assets/img/signup/registered_four.png" alt="" *ngIf='slideIndex !== 3'>
+        <img src="../../../assets/img/signup/registered_four_four.png" alt="" *ngIf='slideIndex === 3'>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-slides #signupSlides>
+
+    <!-- 电话号码 -->
+    <ion-slide>
+      <form style="width: 85%;">
+        <ion-list>
+          <ion-item>
+            <ion-label position="floating" style="color: #ccc;">请输入您的电话号码</ion-label>
+            <ion-input name="phone" inputmode="numeric"
+                       required  pattern="^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$" 
+                       [(ngModel)]="signup.phone" #phone="ngModel" style="font-size: 10pt;">
+            </ion-input>
+          </ion-item>
+
+          <ion-text class="ion-text-left" color="danger" *ngIf="phone.invalid && phone.touched">
+            <p *ngIf="phone.errors?.required" style="font-size: 10pt;">请输入手机号码</p>
+            <p *ngIf="phone.errors?.pattern" style="font-size: 10pt;">您输入的手机号格式不正确</p>
+          </ion-text>
+          
+          
+          <div class="ion-padding-horizontal">
+            <ion-button type="submit" expand="full" color="primary">下一步</ion-button>
+          </div>
+        </ion-list>
+      </form>
+    </ion-slide>
+  </ion-slides>
+
+</ion-content>

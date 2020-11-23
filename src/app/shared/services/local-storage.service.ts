@@ -24,7 +24,7 @@ export class LocalStorageService {
 
   // 添加一个名叫set方法，根据key设置数据。如果key不存在相当于添加操作，如果key存在相当于修改操作
   set(key: string, value: any){
-    this.storage.setItem(key,JSON.stringify(value));
+    this.storage.setItem(key, JSON.stringify(value));
   }
 
   // 添加一个名叫remove方法
