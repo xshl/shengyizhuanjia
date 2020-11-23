@@ -27,4 +27,8 @@ export class GuidePage implements OnInit {
     this.router.navigateByUrl('/passport/signup');
   }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> bdf8a335c2cc683d342f14bf2e4bedd6e015aabc
 export const APP_KEY = 'App';
