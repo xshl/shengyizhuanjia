@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule
   ],
   providers: [
     LocalStorageService

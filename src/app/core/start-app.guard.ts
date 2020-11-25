@@ -17,12 +17,15 @@ export class StartAppGuard implements CanActivate {
         launched: false
       });
       if ( appConfig.launched === false ) {
-        appConfig.launched = true;
-        this.localStorageService.set(APP_KEY, appConfig);
+        // appConfig.launched = true;
+        // this.localStorageService.set(APP_KEY, appConfig);
         return true;
+      }
+      const userList = this.localStorageService.get('UserList', []);
+      if (userList.length === 0) {
+        this.router.navigateByUrl('passport/signup');
       } else {
-        this.router.navigateByUrl('tabs');
-        return false;
+        this.router.navigateByUrl('tabs/home');
       }
   }
   constructor(private localStorageService: LocalStorageService, private router: Router) { }
