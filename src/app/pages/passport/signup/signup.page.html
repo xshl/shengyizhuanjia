@@ -13,29 +13,29 @@
   <ion-grid style="margin-top: 3%; width: 85%;">
     <ion-row>
       <ion-col>
-        <img src="../../../assets/img/signup/registered_one.png" alt="" *ngIf='slideIndex !== 0'>
-        <img src="../../../assets/img/signup/registered_one_one.png" alt="" *ngIf='slideIndex === 0'>
+        <img src="../../../assets/img/signup/registered_one.png" alt="" *ngIf='!isActive(0)'>
+        <img src="../../../assets/img/signup/registered_one_one.png" alt="" *ngIf='isActive(0)'>
       </ion-col>
       <ion-col class="ion-align-self-center">
         <hr>
       </ion-col>
       <ion-col>
-        <img src="../../../assets/img/signup/registered_two.png" alt="" *ngIf='slideIndex !== 1'>
-        <img src="../../../assets/img/signup/registered_two_two.png" alt="" *ngIf='slideIndex === 1'> 
+        <img src="../../../assets/img/signup/registered_two.png" alt="" *ngIf='!isActive(1)'>
+        <img src="../../../assets/img/signup/registered_two_two.png" alt="" *ngIf='isActive(1)'> 
       </ion-col>
       <ion-col class="ion-align-self-center">
         <hr>
       </ion-col>
       <ion-col>
-        <img src="../../../assets/img/signup/registered_three.png" alt="" *ngIf='slideIndex !== 2'>
-        <img src="../../../assets/img/signup/registered_three_three.png" alt="" *ngIf='slideIndex === 2'>
+        <img src="../../../assets/img/signup/registered_three.png" alt="" *ngIf='!isActive(2)'>
+        <img src="../../../assets/img/signup/registered_three_three.png" alt="" *ngIf='isActive(2)'>
       </ion-col>
       <ion-col class="ion-align-self-center">
         <hr>
       </ion-col>
       <ion-col>
-        <img src="../../../assets/img/signup/registered_four.png" alt="" *ngIf='slideIndex !== 3'>
-        <img src="../../../assets/img/signup/registered_four_four.png" alt="" *ngIf='slideIndex === 3'>
+        <img src="../../../assets/img/signup/registered_four.png" alt="" *ngIf='!isActive(3)'>
+        <img src="../../../assets/img/signup/registered_four_four.png" alt="" *ngIf='isActive(3)'>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -47,7 +47,8 @@
       <form style="width: 85%;" #phoneForm="ngForm" (ngSubmit)="onSubmitPhone(phoneForm)">
         <ion-list>
           <ion-item>
-            <ion-input name="phone" type="text" placeholder="请输入您的手机号码" 
+            <ion-label position="floating" style="color: #aaa;">请输入您的手机号码</ion-label>
+            <ion-input name="phone" type="text" inputmode="tel"
                         required  pattern="^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$" 
                         [(ngModel)]="signup.phone" #phone="ngModel" style="font-size: 10pt;">
             </ion-input>
@@ -71,7 +72,8 @@
       <form style="width: 85%;" #codeForm="ngForm" (ngSubmit)="onSubmitCode(codeForm)">
         <ion-list>
           <ion-item>
-            <ion-input name='code' type="string" placeholder="输入验证码" required 
+            <ion-label position="floating" style="color: #aaa;">请输入验证码</ion-label>
+            <ion-input name='code' type="string" required inputmode="numeric"
                         [(ngModel)]="signup.code" #code="ngModel" style="font-size: 10pt;"></ion-input>
             <ion-button color="primary" expand="full" slot="end" style="height: 75%;" (click)="onSendSMS()" [disabled]="!clickSendSMS">{{timerTxt}}</ion-button>
           </ion-item>
@@ -104,17 +106,19 @@
       <form style="width: 85%;" #detailForm="ngForm" (ngSubmit)="onSubmitDetail(detailForm)">
         <ion-list>
           <ion-item>
-            <ion-input name='shopName' type="string" placeholder="请输入店铺的名称" required 
-                        [(ngModel)]="signup.shopName" #shopName="ngModel" style="font-size: 10pt;"></ion-input>
+            <ion-label position="floating" style="color: #aaa;">请输入店铺的名称</ion-label>
+            <ion-input name='shopName' type="string" required 
+                       [(ngModel)]="signup.shopName" #shopName="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="shopName.touched">
             <p *ngIf="shopName.errors?.required" style="font-size: 10pt;">店铺名不能为空</p>
           </ion-text>
 
           <ion-item>
-            <ion-input name='email' type="email" placeholder="请输入电子邮箱"
-                        required  pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$" 
-                        [(ngModel)]="signup.email" #email="ngModel" style="font-size: 10pt;"></ion-input>
+            <ion-label position="floating" style="color: #aaa;">请输入电子邮箱</ion-label>
+            <ion-input name='email' type="email" required 
+                       pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$" 
+                       [(ngModel)]="signup.email" #email="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="email.touched">
             <p *ngIf="email.errors?.pattern" style="font-size: 10pt;">您输入的邮箱格式不正确</p>
@@ -122,7 +126,8 @@
           </ion-text>
 
           <ion-item>
-            <ion-input name='password' type="password" placeholder="请输入登陆密码" required
+            <ion-label position="floating" style="color: #aaa;">请输入登陆密码</ion-label>
+            <ion-input name='password' type="password" required
                         pattern="(?!^\d+$)(?!^[A-Za-z]+$)(?!^[^A-Za-z0-9]+$)(?!^.*[\u4E00-\u9FA5].*$)^\S{6,16}$" 
                         [(ngModel)]="signup.password" #password="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
@@ -132,16 +137,15 @@
           </ion-text>
           
           <ion-item>
-            <ion-input name='confirmPassword' type="password" placeholder="请输入确认密码" required 
+            <ion-label position="floating" style="color: #aaa;">请输入确认密码</ion-label>
+            <ion-input name='confirmPassword' type="password" required 
                         [(ngModel)]="signup.confirmPassword" #confirmPassword="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="confirmPassword.touched">
             <p *ngIf="confirmPassword.errors?.required" class="confirmPassword-start" style="font-size: 10pt;">确认密码不能为空</p>
+            <p *ngIf="!onConfirmPassword() && !confirmPassword.errors?.required" class="confirmPassword-start" style="font-size: 10pt;">两次密码不一致</p>
           </ion-text>
 
-          <ion-text class="ion-text-left" color="danger" *ngIf="confirmPassword.touched">
-            <p *ngIf="!onConfirmPassword()" class="confirmPassword-start" style="font-size: 10pt;">两次密码不一致</p>
-          </ion-text>
 
           <div class="ion-padding-horizontal">
             <ion-button expand="full" color="primary" disable="true" (click)="onPrevious()">上一步</ion-button>
@@ -157,6 +161,9 @@
     <!-- 注册成功 -->
     <ion-slide>
       <div class="ion-padding-horizontal">
+        <ion-text>
+          注册成功
+        </ion-text>
         <ion-button (click)="onLogin()" expand="full" color="primary">
           登录
         </ion-button>

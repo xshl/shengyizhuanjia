@@ -1,5 +1,5 @@
 import { AlertController, IonRouterOutlet, IonSlides, ToastController } from '@ionic/angular';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Signup } from './signup';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -76,24 +76,18 @@ export class SignupPage implements OnInit {
    * @memberof SignupPage
    */
   async onSubmitPhone(form: NgForm) {
-    let toast: any;
-    toast = await this.toastController.create({
-        duration: 3000
-    });
     if (form.valid) {
       // 已通过客户端验证
-      this.passportService.isUniquePhone(this.signup).then((res) => {
+      const toast = await this.toastController.create({
+        duration: 3000,
+        message: '手机号已被注册，请直接登录'
+      });
+      this.passportService.isUniquePhone(this.signup).then(res => {
         if (res.success === true){
           this.onNext();
-        } else {
+        } else {  // 电话号码已注册
           console.log('添加失败');
-          this.alertController.create({
-            header: '提示',
-            buttons: ['确定']
-          }).then((alert) => {
-            alert.message = res.error.message;
-            alert.present();
-          });
+          toast.present();
         }
       });
     }
@@ -108,8 +102,6 @@ export class SignupPage implements OnInit {
     this.clickCodeBtn = true;
     if (form.valid){
       // 已通过客户端验证
-      console.log(form);
-      this.signup.code = form.value.code;
       if (this.onValidateCode()){
         this.onNext();
       }
@@ -123,32 +115,19 @@ export class SignupPage implements OnInit {
    * @memberof SignupPage
    */
   async onSubmitDetail(form: NgForm) {
-    let toast: any;
-    toast = await this.toastController.create({
-        duration: 3000
-    });
     this.clickDetailBtn = true;
     if (form.valid){
-      // 已通过客户端验证
-      console.log(form);
-      this.signup.shopName = form.value.shopName;
-      this.signup.email = form.value.email;
-      this.signup.password = form.value.password;
-      this.signup.confirmPassword = form.value.confirmPassword;
-
+      const toast = await this.toastController.create({
+        duration: 3000,
+        message: '邮箱已被注册，请直接登录'
+      });
       if (this.onConfirmPassword()){
         this.passportService.addUser(this.signup).then((res) => {
           if (res.success === true){
             this.onNext();
           } else {
             console.log('添加失败');
-            this.alertController.create({
-              header: '提示',
-              buttons: ['确定']
-            }).then((alert) => {
-              alert.message = res.error.message;
-              alert.present();
-            });
+            toast.present();
           }
         });
       }
@@ -179,7 +158,7 @@ export class SignupPage implements OnInit {
    */
   onSendSMS() {
     this.clickSendSMS = false;
-    this.smsCode = this.authenticationCodeServiceService.createCode(4);
+    this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
     // this.authenticationCodeServiceService.sendSms(this.signup.phone);
     console.log(this.smsCode);
     this.codetimes ++;
@@ -208,6 +187,10 @@ export class SignupPage implements OnInit {
    */
   onValidateCode(): boolean{
     return this.authenticationCodeServiceService.validate(String(this.signup.code));
+  }
+
+  isActive(index: number): boolean {
+    return this.slideIndex === index;
   }
 
 }

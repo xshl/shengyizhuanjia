@@ -17,8 +17,8 @@ export class StartAppGuard implements CanActivate {
         launched: false
       });
       if ( appConfig.launched === false ) {
-        // appConfig.launched = true;
-        // this.localStorageService.set(APP_KEY, appConfig);
+        appConfig.launched = true;
+        this.localStorageService.set(APP_KEY, appConfig);
         return true;
       }
       const userList = this.localStorageService.get('UserList', []);

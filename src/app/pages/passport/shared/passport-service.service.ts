@@ -1,9 +1,9 @@
+import { Signup } from './../signup/signup';
 import { User } from './../../../shared/class/user';
 import { Injectable } from '@angular/core';
 import { AjaxResult } from 'src/app/shared/class/ajax-result';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { Md5 } from 'ts-md5';
-import { Signup } from '../signup/signup';
 import { Shop } from 'src/app/shared/class/shop';
 
 @Injectable({
@@ -12,6 +12,33 @@ import { Shop } from 'src/app/shared/class/shop';
 export class PassportServiceService {
 
   constructor(private localStorageService: LocalStorageService) { }
+
+  /*
+   * 初始化User
+   * @param {Signup} signup 注册信息
+   * @return {*}  {User}  用户信息
+   * @memberof PassportServiceService
+   */
+  initUser(signup: Signup): User{
+    const user = new User();
+    user.phone = signup.phone;
+    user.email = signup.email;
+    user.createTime = new Date();
+    user.passwordToken = Md5.hashStr(signup.password).toString();
+    return user;
+  }
+
+  /*
+   * 初始化Shop
+   * @param {Signup} signup 注册信息
+   * @return {*}  {Shop}  商店信息
+   * @memberof PassportServiceService
+   */
+  initShop(signup: Signup): Shop{
+    const shop = new Shop();
+    shop.shopName = signup.shopName;
+    return shop;
+  }
 
   /*
    * 注册
@@ -45,25 +72,11 @@ export class PassportServiceService {
       }
     }
 
-    const { phone, email, shopName, password} = signup;
-    const md5Password = Md5.hashStr(password).toString();
-    const user: User = {
-      id: userList.length + 1,
-      phone,
-      email,
-      createTime: new Date(),
-      shopId: shopList.length + 1,
-      userName: '',
-      passwordToken: md5Password,
-      wechatId: '',
-    };
-    const shop: Shop = {
-      id: shopList.length + 1,
-      shopName,
-      shortName: '',
-      shopTel: '',
-      shopType: ''
-    };
+    const user = this.initUser(signup);
+    user.id = userList.length + 1;
+    user.shopId = shopList.length + 1;
+    const shop = this.initShop(signup);
+    shop.id = shopList.length + 1;
     userList.push(user);
     shopList.push(shop);
     this.localStorageService.set('UserList', userList);

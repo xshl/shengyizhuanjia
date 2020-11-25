@@ -1,3 +1,4 @@
+import { Signup } from './../../pages/passport/signup/signup';
 export class User {
     id: number;
     shopId: number;
