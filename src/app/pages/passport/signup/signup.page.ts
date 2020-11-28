@@ -32,6 +32,7 @@ export class SignupPage implements OnInit {
     confirmPassword: '',
     code: ''
   };
+  phone = '';
   showSkip = true;
   slideIndex = 0;
   clickSendSMS = true;
@@ -82,8 +83,12 @@ export class SignupPage implements OnInit {
         duration: 3000,
         message: '手机号已被注册，请直接登录'
       });
+      if (this.phone !== '' && this.phone !== this.signup.phone) {
+        this.initCode();
+      }
       this.passportService.isUniquePhone(this.signup).then(res => {
         if (res.success === true){
+          this.phone = this.signup.phone;
           this.onNext();
         } else {  // 电话号码已注册
           console.log('添加失败');
@@ -140,6 +145,7 @@ export class SignupPage implements OnInit {
    */
   onLogin() {
     this.outlet.pop(1);
+    this.passportService.login(this.signup.phone, this.signup.password);
     this.router.navigateByUrl('/tabs/home');
   }
 
@@ -180,6 +186,18 @@ export class SignupPage implements OnInit {
     }
   }
 
+  initCode(){
+    this.clickSendSMS = true;
+    this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
+    this.codetimes = 0;
+    this.timerTxt = '获取验证码';
+    this.second = 60;
+    this.clickCodeBtn = false;
+    clearInterval(this.timer);
+    this.smsCode = '';
+    this.signup.code = '';
+  }
+
   /*
    * 验证验证码是否正确
    * @return {*}  {boolean} 验证码是否正确
@@ -187,6 +205,15 @@ export class SignupPage implements OnInit {
    */
   onValidateCode(): boolean{
     return this.authenticationCodeServiceService.validate(String(this.signup.code));
+  }
+
+  /*
+   * 判断店铺名是否在8个字以内
+   * @return {*}  {boolean}
+   * @memberof SignupPage
+   */
+  onValidateShopName(): boolean {
+    return this.signup.shopName.length <= 8;
   }
 
   isActive(index: number): boolean {

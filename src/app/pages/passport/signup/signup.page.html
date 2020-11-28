@@ -85,10 +85,6 @@
           <ion-text class="ion-text-left" color="danger" *ngIf="clickCodeBtn">
             <p *ngIf="!onValidateCode()" style="font-size: 10pt;">您输入的验证码不正确</p>
           </ion-text>
-
-          <ion-text class="ion-text-left" color="danger" *ngIf="clickSendSMS">
-            <p style="font-size: 10pt;">{{smsCode}}</p>
-          </ion-text>
           
           <div class="ion-padding-horizontal">
             <ion-button expand="full" color="primary" (click)="onPrevious()">上一步</ion-button>
@@ -112,6 +108,7 @@
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="shopName.touched">
             <p *ngIf="shopName.errors?.required" style="font-size: 10pt;">店铺名不能为空</p>
+            <p *ngIf="!shopName.errors?.required && !onValidateShopName()" style="font-size: 10pt;">店铺名请在8个字以内</p>
           </ion-text>
 
           <ion-item>
@@ -168,8 +165,7 @@
           登录
         </ion-button>
       </div>
-      
     </ion-slide>
-  
   </ion-slides>
+  <xsl-copyright [bottom]="'20px'"></xsl-copyright>
 </ion-content>
