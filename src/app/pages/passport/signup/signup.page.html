@@ -61,7 +61,7 @@
           </ion-text>
           
           <div class="ion-padding-horizontal">
-            <ion-button type="submit" expand="full" color="primary" [disabled]="phoneForm.invalid">下一步</ion-button>
+            <ion-button type="submit" expand="full" color="syzj" [disabled]="phoneForm.invalid">下一步</ion-button>
           </div>
         </ion-list>
       </form>
@@ -75,7 +75,7 @@
             <ion-label position="floating" style="color: #aaa;">请输入验证码</ion-label>
             <ion-input name='code' type="string" required inputmode="numeric"
                         [(ngModel)]="signup.code" #code="ngModel" style="font-size: 10pt;"></ion-input>
-            <ion-button color="primary" expand="full" slot="end" style="height: 75%;" (click)="onSendSMS()" [disabled]="!clickSendSMS">{{timerTxt}}</ion-button>
+            <ion-button color="syzj" expand="full" slot="end" style="height: 75%;" (click)="onSendSMS()" [disabled]="!clickSendSMS">{{timerTxt}}</ion-button>
           </ion-item>
 
           <ion-text class="ion-text-left" color="danger" *ngIf="code.touched">
@@ -87,11 +87,11 @@
           </ion-text>
           
           <div class="ion-padding-horizontal">
-            <ion-button expand="full" color="primary" (click)="onPrevious()">上一步</ion-button>
+            <ion-button expand="full" color="syzj" (click)="onPrevious()">上一步</ion-button>
           </div>
 
           <div class="ion-padding-horizontal">
-            <ion-button name="codebtn" type="submit" expand="full" color="primary" [disabled]="codeForm.invalid">下一步</ion-button>
+            <ion-button name="codebtn" type="submit" expand="full" color="syzj" [disabled]="codeForm.invalid">下一步</ion-button>
           </div>
         </ion-list>
       </form>
@@ -145,11 +145,11 @@
 
 
           <div class="ion-padding-horizontal">
-            <ion-button expand="full" color="primary" disable="true" (click)="onPrevious()">上一步</ion-button>
+            <ion-button expand="full" color="syzj" disable="true" (click)="onPrevious()">上一步</ion-button>
           </div>
 
           <div class="ion-padding-horizontal">
-            <ion-button type="submit" expand="full" color="primary" [disabled]="detailForm.invalid">下一步</ion-button>
+            <ion-button type="submit" expand="full" color="syzj" [disabled]="detailForm.invalid">下一步</ion-button>
           </div>
         </ion-list>
       </form>
@@ -161,7 +161,7 @@
         <ion-text>
           注册成功
         </ion-text>
-        <ion-button (click)="onLogin()" expand="full" color="primary">
+        <ion-button (click)="onLogin()" expand="full" color="syzj">
           登录
         </ion-button>
       </div>

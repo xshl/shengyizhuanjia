@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="syzj">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-left: 25%;">
+      首页
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon slot="icon-only" name="calendar-outline"></ion-icon>
+      </ion-button>
+      <ion-button>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img src="assets/img/home/androidbanner.png" style="width: 100%;"></ion-img>
+  </div>
+
+  <ion-grid style="padding: 0;">
+    <ion-row style="background-color: #f6f5fa;">
+      <ion-col *ngFor="let s of sales">
+        <h6 style="font-size: 60%;">{{s.title}}</h6>
+        <h4 style="font-size: 100%;"><span>{{s.current | number:'1.2-2'}}元</span></h4>
+        <p style="font-size: 50%;">
+          {{s.content}}
+          <span [ngClass]="{'less-equal': minus(s.current, s.previous) <= 0,'greater': minus(s.current, s.previous) > 0}">
+            {{s.current - s.previous | number:'1.2-2'}}
+          </span>
+          <ng-container  [ngSwitch]="minus(s.current, s.previous)">
+            <ion-icon name="arrow-up" color="danger" *ngSwitchCase="1"></ion-icon>
+            <ion-icon name="remove" color="success" *ngSwitchCase="0"></ion-icon>
+            <ion-icon name="arrow-down" color="success" *ngSwitchCase="-1"></ion-icon>
+          </ng-container>
+        </p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="grid" *ngFor="let row of quicks">
+      <ion-col size="3" class="ion-no-padding" *ngFor="let col of row">
+        <div class="grid-item" routerLink={{col.href}} *ngIf="!col.disable" style="font-size: 15px;">
+          <img src="../../../assets/img/home/{{col.name}}.png" style="width: 40px;">
+          <div>{{col.text}}</div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <xsl-copyright [bottom]="'20px'"></xsl-copyright>
+</ion-content>

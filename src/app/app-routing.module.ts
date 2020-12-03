@@ -20,6 +20,14 @@ const routes: Routes = [
   {
     path: 'passport',
     loadChildren: () => import('./pages/passport/passport.module').then( m => m.PassportModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
+    path: 'me',
+    loadChildren: () => import('./pages/me/me.module').then( m => m.MePageModule)
   }
 ];
 @NgModule({

@@ -1,5 +1,5 @@
 export class CurrentLogin {
-    userid: number;
+    loginAccount: string;
     type: number;   // 登录类型
     loginTime: string;
     identifier = (type: number): string => {

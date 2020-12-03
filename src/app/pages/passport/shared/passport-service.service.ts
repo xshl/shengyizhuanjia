@@ -1,3 +1,4 @@
+import { AppComponent } from 'src/app/app.component';
 import { Signup } from './../signup/signup';
 import { User } from './../../../shared/class/user';
 import { Injectable } from '@angular/core';
@@ -57,7 +58,7 @@ export class PassportServiceService {
    */
   initCurrentLogin(user: User): CurrentLogin {
     const currentLogin = new CurrentLogin();
-    currentLogin.userid = user.id;
+    currentLogin.loginAccount = user.phone;
     currentLogin.type = 0;
     currentLogin.loginTime = new Date().toString();
     return currentLogin;
@@ -148,6 +149,7 @@ export class PassportServiceService {
     currentLogin.loginTime = new Date().toString();
     this.localStorageService.set('CurrentLogin', currentLogin);
     this.localStorageService.set('HistoryLogin', loginIdentifier);
+    const shop = this.getShop(user.shopId);
     return new AjaxResult(true, null);
   }
 
@@ -204,7 +206,7 @@ export class PassportServiceService {
 
   /*
    * 获取用户信息
-   * @param {string} loginIdentifier  账号  
+   * @param {string} loginIdentifier  账号
    * @return {*}  {User}  用户信息
    * @memberof PassportServiceService
    */
@@ -218,13 +220,42 @@ export class PassportServiceService {
     return null;
   }
 
+  /*
+   * 获取最近一次登录账号
+   * @return {*}  {string}  账号
+   * @memberof PassportServiceService
+   */
   getHistoryLogin(): string {
     const historyLogin = this.localStorageService.get('HistoryLogin', []);
     return historyLogin;
   }
 
+  /*
+   * 更新登陆时间
+   * @memberof PassportServiceService
+   */
   updateLoginTime(){
     const currentLogin = this.localStorageService.get('CurrentLogin', []);
     currentLogin.loginTime = new Date().toString();
+  }
+
+  /*
+   * 获取店铺信息
+   * @param {number} shopId 店铺号
+   * @return {*}  {Shop}  店铺信息
+   * @memberof PassportServiceService
+   */
+  getShop(shopId: number): Shop{
+    const shopList = this.localStorageService.get('ShopList', []);
+    for (const shop of shopList) {
+      if (shopId === shop.id) {
+        return shop;
+      }
+    }
+  }
+
+  getCurrentUser(): User{
+    const currentLogin = this.localStorageService.get('CurrentLogin', []);
+    return this.getUser(currentLogin.loginAccount);
   }
 }

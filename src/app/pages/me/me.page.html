@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-title style="text-align: center; margin-left: 10%;">店主</ion-title>
+    <ion-icon name="settings-outline" slot="end" style="width: 25px; height: 25px; margin-right: 10px;"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list style="padding: 0;">
+    <ion-item color="syzj">
+      <ion-label>
+        <ion-text>
+          <p style="font-size: 15pt;">{{name}}</p>
+        </ion-text>
+        <p>{{phone}}</p>
+      </ion-label>
+      <ion-badge slot="end" color="syzj">高级版</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
+      <ion-item detail [routerDirection]="'root'" [routerLink]="[p.url]">
+        <ion-icon slot="start" [name]="p.icon"></ion-icon>
+        <ion-label>
+          {{p.title}}
+        </ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+  </ion-list>
+</ion-content>
