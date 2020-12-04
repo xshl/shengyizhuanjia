@@ -1,6 +1,6 @@
 import { PassportServiceService } from './../passport/shared/passport-service.service';
 import { LocalStorageService } from './../../shared/services/local-storage.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-me',
@@ -20,13 +20,20 @@ export class MePage implements OnInit {
     { title: '帮助中心', url: '/tabs/home', icon: 'help-circle-outline' },
   ];
 
-  constructor(private passportService: PassportServiceService) { }
+  constructor(private passportService: PassportServiceService,
+              public ngZone: NgZone) { }
 
   ngOnInit() {
     const user = this.passportService.getCurrentUser();
     this.phone = user.phone;
     const shop = this.passportService.getShop(user.shopId);
     this.name = shop.shopName;
+    console.log('phone:' + this.phone + ', name:' + this.name);
+    console.log('加载');
+  }
+
+  ionViewWillEnter(){
+    this.ngOnInit();
   }
 
 }

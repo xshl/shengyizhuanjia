@@ -1,3 +1,4 @@
+import { SettingService } from './../../setting/setting.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { PassportServiceService } from './../shared/passport-service.service';
 import { ToastController, AlertController, IonRouterOutlet } from '@ionic/angular';
@@ -20,7 +21,7 @@ export class LoginPage implements OnInit {
               private passportService: PassportServiceService,
               private outlet: IonRouterOutlet,
               private router: Router,
-              private localStorageService: LocalStorageService) {}
+              private settingService: SettingService) { }
 
   ngOnInit() {
     this.username = this.passportService.getHistoryLogin();
@@ -40,7 +41,7 @@ export class LoginPage implements OnInit {
     if (this.username === '') {
       toast.message = '请输入您的手机号码或邮箱';
       toast.present();
-    } else if (this.password === '' ){
+    } else if (this.password === '') {
       toast.message = '请输入您的密码';
       toast.present();
     } else {
@@ -49,6 +50,7 @@ export class LoginPage implements OnInit {
           toast.message = '登录成功';
           toast.present();
           this.outlet.pop(1);
+          this.settingService.onload();
           this.router.navigateByUrl('/tabs/home');
         } else {
           this.alertController.create({
@@ -62,7 +64,4 @@ export class LoginPage implements OnInit {
       });
     }
   }
-
-  
-
 }

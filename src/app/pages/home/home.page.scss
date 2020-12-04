@@ -1,8 +1,8 @@
-.less-equal{
+.less-equal {
     color: var(--ion-color-success, #10dc60);
 }
-.greater{
-color: var(--ion-color-danger, #f04141);
+.greater {
+    color: var(--ion-color-danger, #f04141);
 }
 .grid {
     border-right: 1px solid #ececec;
@@ -14,10 +14,10 @@ color: var(--ion-color-danger, #f04141);
         align-items: center;
         height: 25vw;
         border-top: 1px solid #ececec;
-        border-left: 1px solid #ececec;
+        border-right: 1px solid #ececec;
         div {
-        margin-top: 9px;
-        text-align: center;
+            margin-top: 9px;
+            text-align: center;
         }
     }
 }

@@ -1,3 +1,4 @@
+import { SettingService } from './../../setting/setting.service';
 import { AlertController, IonRouterOutlet, IonSlides, ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Signup } from './signup';
@@ -17,12 +18,12 @@ export class SignupPage implements OnInit {
 
   constructor(private authenticationCodeServiceService: AuthenticationCodeServiceService,
               private router: Router,
-              private localStorageService: LocalStorageService,
               private passportService: PassportServiceService,
               private toastController: ToastController,
               protected appc: AppComponent,
               private alertController: AlertController,
-              private outlet: IonRouterOutlet) { }
+              private outlet: IonRouterOutlet,
+              private settingService: SettingService) { }
 
   signup: Signup = {
     phone: '',
@@ -51,7 +52,7 @@ export class SignupPage implements OnInit {
   submited = false;
   phoneValid = false;  // 电话是否已经被注册
 
-  @ViewChild('signupSlides', {static: true}) signupSlides: IonSlides;
+  @ViewChild('signupSlides', { static: true }) signupSlides: IonSlides;
 
   ngOnInit() {
     this.signupSlides.lockSwipes(true);
@@ -60,14 +61,14 @@ export class SignupPage implements OnInit {
   onNext() {
     this.signupSlides.lockSwipes(false);
     this.signupSlides.slideNext();
-    this.slideIndex ++;
+    this.slideIndex++;
     this.signupSlides.lockSwipes(true);
   }
 
   onPrevious() {
     this.signupSlides.lockSwipes(false);
     this.signupSlides.slidePrev();
-    this.slideIndex --;
+    this.slideIndex--;
     this.signupSlides.lockSwipes(true);
   }
 
@@ -87,7 +88,7 @@ export class SignupPage implements OnInit {
         this.initCode();
       }
       this.passportService.isUniquePhone(this.signup).then(res => {
-        if (res.success === true){
+        if (res.success === true) {
           this.phone = this.signup.phone;
           this.onNext();
         } else {  // 电话号码已注册
@@ -105,9 +106,9 @@ export class SignupPage implements OnInit {
    */
   onSubmitCode(form: NgForm) {
     this.clickCodeBtn = true;
-    if (form.valid){
+    if (form.valid) {
       // 已通过客户端验证
-      if (this.onValidateCode()){
+      if (this.onValidateCode()) {
         this.onNext();
       }
       console.log(this.signup.code);
@@ -121,14 +122,14 @@ export class SignupPage implements OnInit {
    */
   async onSubmitDetail(form: NgForm) {
     this.clickDetailBtn = true;
-    if (form.valid){
+    if (form.valid) {
       const toast = await this.toastController.create({
         duration: 3000,
         message: '邮箱已被注册，请直接登录'
       });
-      if (this.onConfirmPassword()){
+      if (this.onConfirmPassword()) {
         this.passportService.addUser(this.signup).then((res) => {
-          if (res.success === true){
+          if (res.success === true) {
             this.onNext();
           } else {
             console.log('添加失败');
@@ -154,7 +155,7 @@ export class SignupPage implements OnInit {
    * @return {*}  {boolean} 是否一致
    * @memberof SignupPage
    */
-  onConfirmPassword(): boolean{
+  onConfirmPassword(): boolean {
     return this.signup.password === this.signup.confirmPassword;
   }
 
@@ -165,28 +166,35 @@ export class SignupPage implements OnInit {
   onSendSMS() {
     this.clickSendSMS = false;
     this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
+    this.alertController.create({
+      header: '警告',
+      buttons: ['确定']
+    }).then((alert) => {
+      alert.message = this.smsCode;
+      alert.present();
+    });
     // this.authenticationCodeServiceService.sendSms(this.signup.phone);
     console.log(this.smsCode);
-    this.codetimes ++;
-    if (this.codetimes > 3){
+    this.codetimes++;
+    if (this.codetimes > 3) {
       this.timerTxt = '禁止申请';
     } else {
       this.timer = setInterval(() => {
         // console.log(this.second);
-         if (this.second === 0){
-           this.timerTxt = '重新发送';
-           this.second = 60;
-           this.clickSendSMS = true;
-           clearInterval(this.timer);
-         } else {
-           this.timerTxt = `${this.second}秒`;
-         }
-         this.second --;
-       }, 1000);
+        if (this.second === 0) {
+          this.timerTxt = '重新发送';
+          this.second = 60;
+          this.clickSendSMS = true;
+          clearInterval(this.timer);
+        } else {
+          this.timerTxt = `${this.second}秒`;
+        }
+        this.second--;
+      }, 1000);
     }
   }
 
-  initCode(){
+  initCode() {
     this.clickSendSMS = true;
     this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
     this.codetimes = 0;
@@ -203,7 +211,7 @@ export class SignupPage implements OnInit {
    * @return {*}  {boolean} 验证码是否正确
    * @memberof SignupPage
    */
-  onValidateCode(): boolean{
+  onValidateCode(): boolean {
     return this.authenticationCodeServiceService.validate(String(this.signup.code));
   }
 

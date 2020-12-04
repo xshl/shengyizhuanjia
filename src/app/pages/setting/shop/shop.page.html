@@ -1,0 +1,50 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-title style="text-align: center; margin-right: 20%;">店铺信息</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content color="light">
+  <ion-list inset="true">
+    <ion-item detail routerLink="/setting/shop/shop-edit" [queryParams]="{title:'店铺名称',property:'shopName'}" lines="none">
+      <ion-label>店铺名称</ion-label>
+      <ion-note slot="end">{{shop.shopName}}</ion-note>
+    </ion-item>
+    <ion-item detail routerLink="/setting/shop/shop-edit" [queryParams]="{title:'店铺简称',property:'shortName'}" lines="full">
+      <ion-label>店铺简称</ion-label>
+      <ion-note slot="end">{{shop.shortName}}</ion-note>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>注册时间</ion-label>
+      <ion-note slot="end">{{user.createTime | date: "yyyy-MM-dd HH:mm:ss"}}</ion-note>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label>手机号码</ion-label>
+      <ion-note slot="end">{{user.phone}}</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list inset="true">
+    <ion-item lines="none">
+      <ion-label>电子邮件</ion-label>
+      <ion-note slot="end">{{user.email}}</ion-note>
+    </ion-item>
+    <ion-item detail routerLink="/setting/shop/shop-edit" [queryParams]="{title:'店主姓名',property:'userName'}" lines="full">
+      <ion-label>店主姓名</ion-label>
+      <ion-note slot="end">{{user.userName}}</ion-note>
+    </ion-item>
+    <ion-item detail routerLink="/setting/shop/shop-edit" [queryParams]="{title:'店铺电话',property:'shopTel'}" lines="full">
+      <ion-label>店铺电话</ion-label>
+      <ion-note slot="end">{{shop.shopTel}}</ion-note>
+    </ion-item>
+    <ion-item detail routerLink="/setting/shop/shop-edit" [queryParams]="{title:'行业类型',property:'shopType'}" lines="full">
+      <ion-label>行业类型</ion-label>
+      <ion-note slot="end">{{shop.shopType}}</ion-note>
+    </ion-item>
+  </ion-list>
+  <xsl-copyright [bottom]="'20px'"></xsl-copyright>
+</ion-content>
+

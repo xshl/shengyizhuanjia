@@ -1,3 +1,4 @@
+import { SettingService } from './../../setting/setting.service';
 import { AppComponent } from 'src/app/app.component';
 import { Signup } from './../signup/signup';
 import { User } from './../../../shared/class/user';
@@ -78,7 +79,7 @@ export class PassportServiceService {
       if (user.phone === loginIdentifier && user.passwordToken === passwordToken) {
         return 0;
       }
-      if (user.email === loginIdentifier && user.passwordToken === passwordToken){
+      if (user.email === loginIdentifier && user.passwordToken === passwordToken) {
         return 1;
       }
       return -1;
@@ -95,14 +96,14 @@ export class PassportServiceService {
     const userList = this.localStorageService.get('UserList', []);
     const shopList = this.localStorageService.get('ShopList', []);
 
-    if (this.checkAccount(signup.phone) === 0){
+    if (this.checkAccount(signup.phone) === 0) {
       return new AjaxResult(false, null, {
         message: '您的手机号码已经被注册',
         details: ''
       });
     }
 
-    if (this.checkAccount(signup.email) === 1){
+    if (this.checkAccount(signup.email) === 1) {
       return new AjaxResult(false, null, {
         message: '该邮箱已被注册',
         details: ''
@@ -137,7 +138,7 @@ export class PassportServiceService {
         details: ''
       });
     }
-    if (!this.checkPsd(loginIdentifier, password)){
+    if (!(await this.checkPsd(loginIdentifier, password)).success) {
       return new AjaxResult(false, null, {
         message: '密码错误',
         details: ''
@@ -149,7 +150,6 @@ export class PassportServiceService {
     currentLogin.loginTime = new Date().toString();
     this.localStorageService.set('CurrentLogin', currentLogin);
     this.localStorageService.set('HistoryLogin', loginIdentifier);
-    const shop = this.getShop(user.shopId);
     return new AjaxResult(true, null);
   }
 
@@ -159,7 +159,7 @@ export class PassportServiceService {
    * @return {*}
    * @memberof PassportServiceService
    */
-  async isUniquePhone(signup: Signup): Promise<AjaxResult>{
+  async isUniquePhone(signup: Signup): Promise<AjaxResult> {
     if (this.checkAccount(signup.phone) === 0) {
       return new AjaxResult(false, null, {
         message: '您的手机号码已经被注册',
@@ -195,13 +195,18 @@ export class PassportServiceService {
    * @return {*}  {boolean} 是否正确
    * @memberof PassportServiceService
    */
-  checkPsd(loginIdentifier: string, password: string): boolean {
+  async checkPsd(loginIdentifier: string, password: string): Promise<AjaxResult> {
     const user = this.getUser(loginIdentifier);
     const passwordToken = Md5.hashStr(password).toString();
+    console.log(user.passwordToken);
+    console.log(passwordToken);
     if (user.passwordToken === passwordToken) {
-      return true;
+      return new AjaxResult(true, null);
     }
-    return false;
+    return new AjaxResult(false, null, {
+      message: '密码错误',
+      details: ''
+    });
   }
 
   /*
@@ -234,7 +239,7 @@ export class PassportServiceService {
    * 更新登陆时间
    * @memberof PassportServiceService
    */
-  updateLoginTime(){
+  updateLoginTime() {
     const currentLogin = this.localStorageService.get('CurrentLogin', []);
     currentLogin.loginTime = new Date().toString();
   }
@@ -245,7 +250,7 @@ export class PassportServiceService {
    * @return {*}  {Shop}  店铺信息
    * @memberof PassportServiceService
    */
-  getShop(shopId: number): Shop{
+  getShop(shopId: number): Shop {
     const shopList = this.localStorageService.get('ShopList', []);
     for (const shop of shopList) {
       if (shopId === shop.id) {
@@ -254,8 +259,62 @@ export class PassportServiceService {
     }
   }
 
-  getCurrentUser(): User{
+  /*
+   * 获取当前用户信息
+   * @return {*}  {User}  当前用户信息
+   * @memberof PassportServiceService
+   */
+  getCurrentUser(): User {
     const currentLogin = this.localStorageService.get('CurrentLogin', []);
     return this.getUser(currentLogin.loginAccount);
   }
+
+  /*
+   * 修改密码
+   * @param {User} user 用户信息
+   * @param {string} newpassword  新密码
+   * @memberof PassportServiceService
+   */
+  updatePsd(phone: string, newpassword: string) {
+    const userList = this.localStorageService.get('UserList', []);
+    for (const users of userList) {
+      if (users.phone === phone) {
+        users.passwordToken = Md5.hashStr(newpassword).toString();
+      }
+    }
+    this.localStorageService.set('UserList', userList);
+  }
+
+  /*
+   * 更新店铺信息
+   * @param {Shop} shop 店铺信息
+   * @memberof PassportServiceService
+   */
+  updateShop(shop: Shop) {
+    const shopList = this.localStorageService.get('ShopList', []);
+    let i: any;
+    for (i = 0; i < shopList.length; i++){
+      if (shopList[i].id === shop.id) {
+        shopList[i] = shop;
+        this.localStorageService.set('ShopList', shopList);
+      }
+    }
+  }
+
+  /*
+   * 更新用户姓名
+   * @param {User} user 用户信息
+   * @memberof PassportServiceService
+   */
+  updateUserName(user: User){
+    const userList = this.localStorageService.get('UserList', []);
+    let i: any;
+    for (i = 0; i < userList.length; i++){
+      if (userList[i].id === user.id) {
+        userList[i] = user;
+        this.localStorageService.set('UserList', userList);
+      }
+    }
+  }
+
 }

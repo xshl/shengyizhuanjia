@@ -1,0 +1,25 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-title style="text-align: center; margin-right: 20%;">{{title}}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #changeForm="ngForm" (ngSubmit)="onSave(changeForm)" style="display: flex;justify-content: center;">
+    <ion-list style="width: 85%;">
+      <ion-item style="margin-top: 10%;">
+        <ion-label position="floating" style="color: #aaa;">{{title}}</ion-label>
+        <ion-input name='change' type="string" required
+                   [(ngModel)]="changevalue" #change="ngModel" style="font-size: 10pt;"></ion-input>
+      </ion-item>
+
+      <div class="ion-padding-horizontal" style="margin-top: 10%;;">
+        <ion-button type="submit" expand="full" color="syzj" disable=true [disabled]="changeForm.invalid">确定</ion-button>
+      </div>
+    </ion-list>
+  </form>
+</ion-content>
+

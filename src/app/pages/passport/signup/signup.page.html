@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button text="返回" color=""></ion-back-button>
+        <ion-back-button text="返回" default-href="passport/login"></ion-back-button>
       </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -49,7 +49,7 @@
           <ion-item>
             <ion-label position="floating" style="color: #aaa;">请输入您的手机号码</ion-label>
             <ion-input name="phone" type="text" inputmode="tel"
-                        required  pattern="^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$" 
+                        required  [xslPhonePattern]
                         [(ngModel)]="signup.phone" #phone="ngModel" style="font-size: 10pt;">
             </ion-input>
           </ion-item>
@@ -124,8 +124,7 @@
 
           <ion-item>
             <ion-label position="floating" style="color: #aaa;">请输入登陆密码</ion-label>
-            <ion-input name='password' type="password" required
-                        pattern="(?!^\d+$)(?!^[A-Za-z]+$)(?!^[^A-Za-z0-9]+$)(?!^.*[\u4E00-\u9FA5].*$)^\S{6,16}$" 
+            <ion-input name='password' type="password" required [xslPasswordPattern]
                         [(ngModel)]="signup.password" #password="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="password.touched">
@@ -135,14 +134,18 @@
           
           <ion-item>
             <ion-label position="floating" style="color: #aaa;">请输入确认密码</ion-label>
-            <ion-input name='confirmPassword' type="password" required 
+            <ion-input name='confirmPassword' type="password" required [xslConfirm]="password.value"
                         [(ngModel)]="signup.confirmPassword" #confirmPassword="ngModel" style="font-size: 10pt;"></ion-input>
           </ion-item>
-          <ion-text class="ion-text-left" color="danger" *ngIf="confirmPassword.touched">
-            <p *ngIf="confirmPassword.errors?.required" class="confirmPassword-start" style="font-size: 10pt;">确认密码不能为空</p>
-            <p *ngIf="!onConfirmPassword() && !confirmPassword.errors?.required" class="confirmPassword-start" style="font-size: 10pt;">两次密码不一致</p>
-          </ion-text>
 
+          <ion-item *ngIf="confirmPassword.invalid && confirmPassword.touched" lines="none">
+            <ion-text color="danger" *ngIf="confirmPassword.errors?.confirm" style="font-size: 10pt;">
+              两次密码不一致
+            </ion-text>
+            <ion-text color="danger" *ngIf="confirmPassword.errors?.required" style="font-size: 10pt;">
+              请输入确认密码
+            </ion-text>
+          </ion-item>
 
           <div class="ion-padding-horizontal">
             <ion-button expand="full" color="syzj" disable="true" (click)="onPrevious()">上一步</ion-button>
