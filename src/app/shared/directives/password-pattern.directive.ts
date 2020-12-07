@@ -30,9 +30,9 @@ export function patternValidator(): ValidatorFn {
     }
     // 密码的正则式
     const pat = /(?!^\d+$)(?!^[A-Za-z]+$)(?!^[^A-Za-z0-9]+$)(?!^.*[\u4E00-\u9FA5].*$)^\S{6,16}$/;
-    // 可以用规console.log记录实时过程中的值。
+    // 可以用console.log记录实时过程中的值。
     // console.log(pat.test(control.value));
-  　// 如果两次输入的值不相同，则返回confirm的错误
+  　// 如果密码不符合格式，则返回confirm的错误
     return !pat.test(control.value) ? {pattern: {value: true}} : null;
    };
 }

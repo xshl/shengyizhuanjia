@@ -1,3 +1,4 @@
+import { NavigationEnd, Router } from '@angular/router';
 import { PassportServiceService } from './../passport/shared/passport-service.service';
 import { LocalStorageService } from './../../shared/services/local-storage.service';
 import { Component, NgZone, OnInit } from '@angular/core';
@@ -21,19 +22,27 @@ export class MePage implements OnInit {
   ];
 
   constructor(private passportService: PassportServiceService,
-              public ngZone: NgZone) { }
+              public router: Router) {
+                router.events.subscribe((event) => {
+                  if (event instanceof NavigationEnd) {
+                    if (event.url === '/tabs/me') {
+                      this.updateData();
+                    }
+                  }
+                });
+              }
 
   ngOnInit() {
+    this.updateData();
+  }
+
+  updateData() {
     const user = this.passportService.getCurrentUser();
     this.phone = user.phone;
     const shop = this.passportService.getShop(user.shopId);
     this.name = shop.shopName;
-    console.log('phone:' + this.phone + ', name:' + this.name);
-    console.log('加载');
-  }
-
-  ionViewWillEnter(){
-    this.ngOnInit();
+    // console.log('phone:' + this.phone + ', name:' + this.name);
+    // console.log('加载');
   }
 
 }

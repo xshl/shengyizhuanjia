@@ -1,4 +1,4 @@
-import { IonRouterOutlet } from '@ionic/angular';
+import { IonRouterOutlet, NavController } from '@ionic/angular';
 import { LocalStorageService } from './../../shared/services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,7 +13,8 @@ export class SettingPage implements OnInit {
   version = '';
   constructor(private localstorageService: LocalStorageService,
               private outlet: IonRouterOutlet,
-              private router: Router) { }
+              private router: Router,
+              private nav: NavController) { }
 
   ngOnInit() {
     const app = this.localstorageService.get('App', []);
@@ -29,6 +30,7 @@ export class SettingPage implements OnInit {
   back() {
     this.outlet.pop(1);
     this.router.navigateByUrl('tabs/me');
+    // this.nav.navigateRoot('tabs/me');
   }
 
 }
