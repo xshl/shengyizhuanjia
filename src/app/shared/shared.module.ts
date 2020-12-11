@@ -20,7 +20,7 @@ import { PasswordPatternDirective } from './directives/password-pattern.directiv
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule
+    IonicModule,
   ],
   providers: [
     LocalStorageService

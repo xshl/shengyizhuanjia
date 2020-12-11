@@ -54,6 +54,7 @@ export class LoginPage implements OnInit {
           this.router.navigateByUrl('/tabs/home');
         } else {
           this.alertController.create({
+            cssClass: 'oneBtn',
             header: '警告',
             buttons: ['确定']
           }).then((alert) => {

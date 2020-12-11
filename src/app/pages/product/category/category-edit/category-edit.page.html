@@ -1,0 +1,45 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-right: 20%;">编辑分类</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-no-padding" color="light">
+  <ion-list>
+    <ion-list-header>
+      <ion-label>大分类</ion-label>
+    </ion-list-header>
+    <ion-item-sliding #bigcategory>
+      <ion-item>
+        <ion-label>{{category.name}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="syzj" (click)="onEditCategoryName(bigcategory)">
+          <ion-icon name="create"></ion-icon>编辑
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="onDelete(bigcategory)">
+          <ion-icon name="trash"></ion-icon>删除
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-list-header style="margin-top: 20px;">
+      <ion-label>小分类</ion-label>
+    </ion-list-header>
+    <ion-item-sliding *ngFor="let c of category?.children" #subcategory style="margin-left: 10px;">
+      <ion-item>
+        <ion-label>{{c.name}}</ion-label>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option color="syzj" (click)="onEditSubCategoryName(subcategory, c)">
+          <ion-icon name="create"></ion-icon>编辑
+        </ion-item-option>
+        <ion-item-option color="danger" (click)="onDelete(subcategory, c.id)">
+          <ion-icon name="trash"></ion-icon>删除
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+</ion-content>

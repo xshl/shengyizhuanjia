@@ -1,0 +1,58 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-buttons slot="start">
+      <ion-back-button text="商品列表"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center; margin-right: 20%;">商品分类</ion-title>
+    <ion-buttons slot="end" style="margin-right: 2%;">
+      <ion-icon slot="icon-only" name="add" routerLink="../../../../../product/category/add" 
+                [queryParams]="{id: 0, name: ''}"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row align-items-stretch>
+      <ion-col size="5" left>
+        <ion-list>
+          <ion-item lines="full" color="light">
+            <ion-label>大分类</ion-label>
+          </ion-item>
+          <ion-item *ngFor="let c of categories" [color]="getItemColor(c.id)" 
+                    (click)="selectCategory(c.id)" [ngClass]="{'item-active': c.id===activeCategory.id}">
+            {{c.name}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col size="7">
+        <ion-list>
+          <ion-item lines="full">
+            <ion-label>小分类</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>无小分类进入大分类</ion-label>
+          </ion-item>
+          <ion-item detail *ngFor="let i of activeSubCategories" (click)="selectSubCategory(i)">
+            {{i.name}}
+          </ion-item>
+          <ion-item lines="none" routerLink="../../../product/add" (click)="gotoAddCategory()">
+            <ion-icon slot="start" name='add-circle' color="syzj" style="margin-right: 12px;"></ion-icon>
+            <ion-label color="syzj">新增小分类</ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-list class="list-footer">
+          <ion-item>
+            <ion-label *ngIf="activeSubCategories?.length === 0">
+              目前没有小分类
+            </ion-label>
+            <ion-label *ngIf="activeSubCategories?.length !== 0">
+              共{{activeSubCategories?.length}}种商品分类
+            </ion-label>
+            <ion-icon slot="end" name="ellipsis-horizontal-circle-outline" (click)="onPresentActionSheet()"></ion-icon>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

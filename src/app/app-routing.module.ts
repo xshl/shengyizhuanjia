@@ -24,6 +24,10 @@ const routes: Routes = [
   {
     path: 'setting',
     loadChildren: () => import('./pages/setting/setting.module').then( m => m.SettingPageModule)
+  },
+  {
+    path: 'product/category',
+    loadChildren: () => import('./pages/product/product.module').then( m => m.ProductModule)
   }
 ];
 @NgModule({
