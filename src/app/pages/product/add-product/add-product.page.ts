@@ -24,7 +24,7 @@ export class AddProductPage implements OnInit, OnDestroy {
               private router: Router,
               private toastController: ToastController,
               private outlet: IonRouterOutlet,
-              private barcodeScanner: BarcodeScanner,) { 
+              private barcodeScanner: BarcodeScanner) { 
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
       (activeCategory)=> {
       this.product.categoryName = activeCategory.name;
