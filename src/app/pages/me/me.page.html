@@ -1,16 +1,19 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="syzj">
-    <ion-title style="text-align: center; margin-left: 10%;">店主</ion-title>
-    <ion-icon name="settings-outline" slot="end" style="width: 25px; height: 25px; margin-right: 10px;" routerLink="/setting"></ion-icon>
+    <ion-title>店主</ion-title>
+    <ion-button routerLink="/setting" slot="end" color="syzj">
+      <ion-icon name="settings-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-list style="padding: 0;">
+  <ion-list class="nopadding">
     <ion-item color="syzj">
       <ion-label>
         <ion-text>
-          <p style="font-size: 15pt;">{{name}}</p>
+          <p class="name">{{name}}</p>
         </ion-text>
         <p>{{phone}}</p>
       </ion-label>

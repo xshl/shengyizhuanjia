@@ -47,17 +47,18 @@
       <form style="width: 85%;" #phoneForm="ngForm" (ngSubmit)="onSubmitPhone(phoneForm)">
         <ion-list>
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入您的手机号码</ion-label>
+            <ion-label position="floating">请输入您的手机号码</ion-label>
             <ion-input name="phone" type="text" inputmode="tel"
-                        required  [xslPhonePattern]
-                        [(ngModel)]="signup.phone" #phone="ngModel" style="font-size: 10pt;">
+                        required  hjrPhonePattern
+                        [(ngModel)]="signup.phone" #phone="ngModel">
             </ion-input>
           </ion-item>
+        
 
           <ion-text class="ion-text-left" color="danger" *ngIf="phone.invalid && phone.touched">
-            <p *ngIf="phone.errors?.required" style="font-size: 10pt;">请输入手机号码</p>
-            <p *ngIf="phone.errors?.pattern" style="font-size: 10pt;">您输入的手机号格式不正确</p>
-            <p *ngIf="phoneValid" style="font-size: 10pt;">该手机号已被注册</p>
+            <p *ngIf="phone.errors?.required">请输入手机号码</p>
+            <p *ngIf="phone.errors?.mobilepat">您输入的手机号格式不正确</p>
+            <p *ngIf="phoneValid">该手机号已被注册</p>
           </ion-text>
           
           <div class="ion-padding-horizontal">
@@ -72,18 +73,18 @@
       <form style="width: 85%;" #codeForm="ngForm" (ngSubmit)="onSubmitCode(codeForm)">
         <ion-list>
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入验证码</ion-label>
+            <ion-label position="floating" >请输入验证码</ion-label>
             <ion-input name='code' type="string" required inputmode="numeric"
-                        [(ngModel)]="signup.code" #code="ngModel" style="font-size: 10pt;"></ion-input>
+                        [(ngModel)]="signup.code" #code="ngModel"></ion-input>
             <ion-button color="syzj" expand="full" slot="end" style="height: 75%;" (click)="onSendSMS()" [disabled]="!clickSendSMS">{{timerTxt}}</ion-button>
           </ion-item>
 
           <ion-text class="ion-text-left" color="danger" *ngIf="code.touched">
-            <p *ngIf="code.errors?.required" style="font-size: 10pt;">请输入验证码</p>
+            <p *ngIf="code.errors?.required">请输入验证码</p>
           </ion-text>
           
           <ion-text class="ion-text-left" color="danger" *ngIf="clickCodeBtn">
-            <p *ngIf="!onValidateCode()" style="font-size: 10pt;">您输入的验证码不正确</p>
+            <p *ngIf="!onValidateCode()">您输入的验证码不正确</p>
           </ion-text>
           
           <div class="ion-padding-horizontal">
@@ -102,47 +103,47 @@
       <form style="width: 85%;" #detailForm="ngForm" (ngSubmit)="onSubmitDetail(detailForm)">
         <ion-list>
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入店铺的名称</ion-label>
+            <ion-label position="floating">请输入店铺的名称</ion-label>
             <ion-input name='shopName' type="string" required 
-                       [(ngModel)]="signup.shopName" #shopName="ngModel" style="font-size: 10pt;"></ion-input>
+                       [(ngModel)]="signup.shopName" #shopName="ngModel"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="shopName.touched">
-            <p *ngIf="shopName.errors?.required" style="font-size: 10pt;">店铺名不能为空</p>
-            <p *ngIf="!shopName.errors?.required && !onValidateShopName()" style="font-size: 10pt;">店铺名请在8个字以内</p>
+            <p *ngIf="shopName.errors?.required">店铺名不能为空</p>
+            <p *ngIf="!shopName.errors?.required && !onValidateShopName()">店铺名请在8个字以内</p>
           </ion-text>
 
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入电子邮箱</ion-label>
+            <ion-label position="floating">请输入电子邮箱</ion-label>
             <ion-input name='email' type="email" required 
                        pattern="^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$" 
-                       [(ngModel)]="signup.email" #email="ngModel" style="font-size: 10pt;"></ion-input>
+                       [(ngModel)]="signup.email" #email="ngModel"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="email.touched">
-            <p *ngIf="email.errors?.pattern" style="font-size: 10pt;">您输入的邮箱格式不正确</p>
-            <p *ngIf="email.errors?.required" style="font-size: 10pt;">邮箱不能为空</p>
+            <p *ngIf="email.errors?.pattern">您输入的邮箱格式不正确</p>
+            <p *ngIf="email.errors?.required">邮箱不能为空</p>
           </ion-text>
 
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入登陆密码</ion-label>
+            <ion-label position="floating">请输入登陆密码</ion-label>
             <ion-input name='password' type="password" required [xslPasswordPattern]
-                        [(ngModel)]="signup.password" #password="ngModel" style="font-size: 10pt;"></ion-input>
+                        [(ngModel)]="signup.password" #password="ngModel"></ion-input>
           </ion-item>
           <ion-text class="ion-text-left" color="danger" *ngIf="password.touched">
-            <p *ngIf="password.errors?.pattern" style="font-size: 10pt;">密码长度6-16位，由数字、英文、符号三种字符类型构成，至少包含两种类型字符</p>
-            <p *ngIf="password.errors?.required" style="font-size: 10pt;">密码不能为空</p>
+            <p *ngIf="password.errors?.pattern">密码长度6-16位，由数字、英文、符号三种字符类型构成，至少包含两种类型字符</p>
+            <p *ngIf="password.errors?.required">密码不能为空</p>
           </ion-text>
           
           <ion-item>
-            <ion-label position="floating" style="color: #aaa;">请输入确认密码</ion-label>
+            <ion-label position="floating">请输入确认密码</ion-label>
             <ion-input name='confirmPassword' type="password" required [xslConfirm]="password.value"
-                        [(ngModel)]="signup.confirmPassword" #confirmPassword="ngModel" style="font-size: 10pt;"></ion-input>
+                        [(ngModel)]="signup.confirmPassword" #confirmPassword="ngModel"></ion-input>
           </ion-item>
 
           <ion-item *ngIf="confirmPassword.invalid && confirmPassword.touched" lines="none">
-            <ion-text color="danger" *ngIf="confirmPassword.errors?.confirm" style="font-size: 10pt;">
+            <ion-text color="danger" *ngIf="confirmPassword.errors?.confirm">
               两次密码不一致
             </ion-text>
-            <ion-text color="danger" *ngIf="confirmPassword.errors?.required" style="font-size: 10pt;">
+            <ion-text color="danger" *ngIf="confirmPassword.errors?.required">
               请输入确认密码
             </ion-text>
           </ion-item>

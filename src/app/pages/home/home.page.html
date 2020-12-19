@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title style="text-align: center; margin-left: 25%;">
+    <ion-title>
       首页
     </ion-title>
     <ion-buttons slot="end">
@@ -22,12 +22,12 @@
     <ion-img src="assets/img/home/androidbanner.png" style="width: 100%;"></ion-img>
   </div>
 
-  <ion-grid style="padding: 0;">
-    <ion-row style="background-color: #f6f5fa;">
+  <ion-grid class="nopadding">
+    <ion-row color="light">
       <ion-col *ngFor="let s of sales">
-        <h6 style="font-size: 60%;">{{s.title}}</h6>
-        <h4 style="font-size: 100%;"><span>{{s.current | number:'1.2-2'}}元</span></h4>
-        <p style="font-size: 50%;">
+        <p class="title">{{s.title}}</p>
+        <h4>{{s.current | number:'1.2-2'}}<span class="label">元</span></h4>
+        <p class="number">
           {{s.content}}
           <span [ngClass]="{'less-equal': minus(s.current, s.previous) <= 0,'greater': minus(s.current, s.previous) > 0}">
             {{s.current - s.previous | number:'1.2-2'}}
@@ -43,8 +43,8 @@
 
     <ion-row class="grid" *ngFor="let row of quicks">
       <ion-col size="3" class="ion-no-padding" *ngFor="let col of row">
-        <div class="grid-item" routerLink="{{col.href}}" [queryParams]="{id: 0}" *ngIf="!col.disable" style="font-size: 15px;">
-          <img src="../../../assets/img/home/{{col.name}}.png" style="width: 40px;">
+        <div class="grid-item hometext" routerLink="{{col.href}}" *ngIf="!col.disable">
+          <img src="../../../assets/img/home/{{col.name}}.png" class="homeimg">
           <div>{{col.text}}</div>
         </div>
       </ion-col>

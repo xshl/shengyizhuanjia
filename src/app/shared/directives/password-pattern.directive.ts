@@ -17,13 +17,13 @@ export class PasswordPatternDirective implements Validator{
   constructor() { }
   validate(control: AbstractControl): ValidationErrors {
     // console.log(control.value);
-    return  patternValidator()(control);
+    return  passwordPatternValidator()(control);
     // throw new Error('Method not implemented.');
   }
 
 }
 
-export function patternValidator(): ValidatorFn {
+export function passwordPatternValidator(): ValidatorFn {
   return (control: AbstractControl): {[key: string]: any} => { // 传入绑定表单的formControl
     if ( !control.value ) { // 如果绑定未输入值，则返回 required错误
      return {required: true };

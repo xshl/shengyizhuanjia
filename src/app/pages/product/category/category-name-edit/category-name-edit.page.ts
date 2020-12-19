@@ -26,9 +26,19 @@ export class CategoryNameEditPage implements OnInit {
   ngOnInit() {
   }
 
+  /*
+   * 退出模态框
+   * @param {string} [name]
+   * @memberof CategoryNameEditPage
+   */
   dismiss(name?: string) {
     this.modalController.dismiss(name);
   }
+
+  /*
+   * 保存修改
+   * @memberof CategoryNameEditPage
+   */
   async onSave() {
     const toast = await this.toastController.create({
       duration: 3000,
@@ -38,8 +48,14 @@ export class CategoryNameEditPage implements OnInit {
       category.name = this.categoryName;
       this.categoryService.isUniqueCategoryName(category).then((res) => {
         if (res.success) {
-          this.dismiss(this.categoryName);
-          this.categoryService.updateName(category);
+          this.categoryService.updateLocalCategory(category).then((res) => {
+            if (res.success) {
+              this.dismiss(this.categoryName);
+            } else {
+              toast.message = res.error.message;
+              toast.present();
+            }
+          });
         } else {
           toast.message = res.error.message;
           toast.present();
@@ -56,8 +72,14 @@ export class CategoryNameEditPage implements OnInit {
       console.log(i);
       this.categoryService.isUniqueChildName(category, i).then((res) => {
         if (res.success) {
-          this.dismiss(this.categoryName);
-          this.categoryService.updateName(category);
+          this.categoryService.updateLocalCategory(category).then((res) => {
+            if (res.success) {
+              this.dismiss(this.categoryName);
+            } else {
+              toast.message = res.error.message;
+              toast.present();
+            }
+          });
         } else {
           toast.message = res.error.message;
           toast.present();

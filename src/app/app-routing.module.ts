@@ -28,6 +28,10 @@ const routes: Routes = [
   {
     path: 'product/category',
     loadChildren: () => import('./pages/product/product.module').then( m => m.ProductModule)
+  },
+  {
+    path: 'add-product',
+    loadChildren: () => import('./pages/product/add-product/add-product.module').then( m => m.AddProductPageModule)
   }
 ];
 @NgModule({

@@ -25,6 +25,23 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+ion-title {
+    text-align: center;
+    margin-right: 25%;
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.label-floating.sc-ion-label-md-h {
+    color: #aaa;
+}
+
+.item-has-focus .label-floating.sc-ion-label-md-h:not(.ion-color) {
+    color: #aaa;
+}
+
 /* actionSheetController 样式 */
 .ascCss {
     .action-sheet-group {
@@ -107,7 +124,7 @@
 
     .alert-title {
         text-align: center;
-        margin-top: -10px;
+        font-size: 13pt;
     }
 
     .alert-button-group {
