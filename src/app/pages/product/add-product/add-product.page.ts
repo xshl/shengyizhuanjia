@@ -6,6 +6,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Product } from 'src/app/shared/class/product';
 import { Subscription } from 'rxjs';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 @Component({
   selector: 'app-add-product',
@@ -24,7 +25,8 @@ export class AddProductPage implements OnInit, OnDestroy {
               private router: Router,
               private toastController: ToastController,
               private outlet: IonRouterOutlet,
-              private barcodeScanner: BarcodeScanner) { 
+              private barcodeScanner: BarcodeScanner,
+              private camera: Camera) { 
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
       (activeCategory)=> {
       this.product.categoryName = activeCategory.name;
@@ -44,31 +46,42 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   async onPresentActionSheet() {
-    const actionSheet = await this.actionSheetController.create({
-      header: '选择您的操作',
-      cssClass: 'ascCss',
-      buttons: [
-        {
-          text: '拍照',
-          role: 'destructive',
-          handler: () => {
-            console.log('camera');
+    if(this.product.images.length === 3) {
+      let toast: any;
+      toast = await this.toastController.create({
+        duration: 3000
+      });
+      toast.message = '最多只能三张图片';
+      toast.present();
+    } else {
+      const actionSheet = await this.actionSheetController.create({
+        header: '选择您的操作',
+        cssClass: 'ascCss',
+        buttons: [
+          {
+            text: '拍照',
+            role: 'destructive',
+            handler: () => {
+              console.log('camera');
+              this.onCamera();
+              
+            }
+          }, {
+            text: '相册',
+            handler: () => {
+              console.log('photos');
+            }
+          }, {
+            text: '取消',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
           }
-        }, {
-          text: '相册',
-          handler: () => {
-            console.log('photos');
-          }
-        }, {
-          text: '取消',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    await actionSheet.present();
+        ]
+      });
+      await actionSheet.present();
+    }
   }
 
   async presentAlertPrompt() {
@@ -115,6 +128,26 @@ export class AddProductPage implements OnInit, OnDestroy {
       this.product.barcode = barcodeData.text;
     }).catch(err => {
       console.log('Error', err);
+    });
+  }
+
+  async onCamera() {
+    const options: CameraOptions = {
+      quality: 10,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      correctOrientation: true
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+     console.log(imageData);
+     this.product.images.push(base64Image);
+    }, (err) => {
+     // Handle error
     });
   }
 

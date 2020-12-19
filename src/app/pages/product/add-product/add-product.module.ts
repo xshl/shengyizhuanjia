@@ -8,6 +8,7 @@ import { AddProductPageRoutingModule } from './add-product-routing.module';
 
 import { AddProductPage } from './add-product.page';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
     AddProductPageRoutingModule
   ],
   providers: [
-    BarcodeScanner
+    BarcodeScanner,
+    Camera
   ],
   declarations: [AddProductPage]
 })
