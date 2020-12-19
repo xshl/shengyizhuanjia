@@ -3,7 +3,7 @@ import { Category } from './../../../../shared/class/category';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { CategoryNameEditPage } from '../category-name-edit/category-name-edit.page';
-import { IonItemSliding, ModalController, AlertController } from '@ionic/angular';
+import { IonItemSliding, ModalController, AlertController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-category-edit',
@@ -17,7 +17,8 @@ export class CategoryEditPage implements OnInit {
     private categoryService: CategoryService,
     private modalController: ModalController,
     private alertController: AlertController,
-    private router: Router) {
+    private router: Router,
+    private toastController: ToastController) {
     activatedRoute.queryParams.subscribe(queryParams => {
       this.category = categoryService.getCategory(queryParams.id);
     });
@@ -53,6 +54,10 @@ export class CategoryEditPage implements OnInit {
   }
 
   async onDelete(item: IonItemSliding, subId?: number) {
+    const toast = await this.toastController.create({
+      duration: 3000,
+      message: '删除成功'
+    });
     // 其他代码省略
     const alert = await this.alertController.create({
       header: '你确认要删除吗!',
@@ -84,6 +89,7 @@ export class CategoryEditPage implements OnInit {
               this.categoryService.delteteChild(this.category, subId);
               this.category = this.categoryService.getCategory(this.category.id);
             }
+            toast.present();
           }
         }
       ]

@@ -4,6 +4,8 @@ import { Category } from 'src/app/shared/class/category';
 import { ActionSheetController } from '@ionic/angular';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { title } from 'process';
+import { Location } from '@angular/common';
+import { ActiveCategory } from 'src/app/shared/class/active-category';
 
 @Component({
   selector: 'app-category-list',
@@ -21,7 +23,8 @@ export class CategoryListPage implements OnInit {
   constructor(private categoryService: CategoryService,
               private actionSheetController: ActionSheetController,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private location: Location) {
     this.loadData();
     activatedRoute.queryParams.subscribe(queryParams => {
       this.id = queryParams.id;
@@ -69,8 +72,23 @@ export class CategoryListPage implements OnInit {
    * @param {number} id 选择的小类的id
    * @memberof CategoryListPage
    */
-  selectSubCategory(id: number) {
-    this.activeSubCategory = this.activeSubCategories[id - 1];
+  selectSubCategory(category: Category) {
+    this.activeSubCategory = category;
+    const activeCategory: ActiveCategory ={
+      id: this.activeSubCategory.id,
+      name: this.activeSubCategory.name,
+    };
+    this.categoryService.setActiveCategory(activeCategory);
+    this.location.back();
+  }
+
+  onSelect(){
+    const activeCategory: ActiveCategory ={
+      id: this.activeCategory.id,
+      name: this.activeCategory.name,
+    };
+    this.categoryService.setActiveCategory(activeCategory);
+    this.location.back();
   }
 
   /*
@@ -137,4 +155,5 @@ export class CategoryListPage implements OnInit {
       return 'light';
     }
   }
+  
 }

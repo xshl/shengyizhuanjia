@@ -28,6 +28,10 @@ export class CategoryAddPage implements OnInit {
 
   }
 
+  /*
+   * 初始化
+   * @memberof CategoryAddPage
+   */
   ngOnInit() {
     if (this.id == 0) {
       this.title = '新增分类';
@@ -37,6 +41,10 @@ export class CategoryAddPage implements OnInit {
     this.category = this.categoryService.initCategory(this.id, this.name);
   }
 
+  /*
+   * 增加小分类
+   * @memberof CategoryAddPage
+   */
   onAddSubCategory() {
     const categorychild = new Category();
     const lastChildId = this.category.children[this.category.children.length - 1].id;
@@ -47,6 +55,10 @@ export class CategoryAddPage implements OnInit {
     this.category.children.push(categorychild);
   }
 
+  /*
+   * 保存修改
+   * @memberof CategoryAddPage
+   */
   async onSave() {
     const toast = await this.toastController.create({
       duration: 3000,

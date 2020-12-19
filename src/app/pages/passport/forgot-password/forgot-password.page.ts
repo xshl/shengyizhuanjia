@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, IonRouterOutlet } from '@ionic/angular';
 import { AuthenticationCodeServiceService } from '../shared/authentication-code-service.service';
 import { PassportServiceService } from '../shared/passport-service.service';
 
@@ -14,7 +14,8 @@ export class ForgotPasswordPage implements OnInit {
 
   constructor(private passportService: PassportServiceService,
               private authenticationCodeServiceService: AuthenticationCodeServiceService,
-              private router: Router) { }
+              private router: Router,
+              private outlet: IonRouterOutlet) { }
 
   forgotpassword = {
     phoneOrEmail : '',
@@ -74,7 +75,8 @@ export class ForgotPasswordPage implements OnInit {
         // 重置verifyCode
          this.smsCode = '';
          this.codetimes = 0;
-         history.back();
+         this.outlet.pop(1);
+         this.router.navigateByUrl('passport/login');
        } else {
          this.secondTxt = `${this.second2}`;
        }

@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button text="返回"></ion-back-button>
     </ion-buttons>
-    <ion-title style="text-align: center; margin-right: 20%;">编辑分类</ion-title>
+    <ion-title>编辑分类</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,10 +25,10 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-    <ion-list-header style="margin-top: 20px;">
+    <ion-list-header class="subcategory">
       <ion-label>小分类</ion-label>
     </ion-list-header>
-    <ion-item-sliding *ngFor="let c of category?.children" #subcategory style="margin-left: 10px;">
+    <ion-item-sliding *ngFor="let c of category?.children" #subcategory class="subcategory-detail">
       <ion-item>
         <ion-label>{{c.name}}</ion-label>
       </ion-item>
