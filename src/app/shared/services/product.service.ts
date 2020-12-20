@@ -36,7 +36,7 @@ export class ProductService {
   async insert(input: Product): Promise<AjaxResult>{
     input.id = UUID.UUID();
     const products = this.localStorageService.get("product",[]);
-    if (input.name.match(/^\s*$/) || input.categoryName.match(/^\s*$/) || input.barcode.match(/^\s*$/))
+    if (input.name.match(/^\s*$/) || input.categoryName.match(/^\s*$/))
     for(const product of products) {
       if(product.name === input.name) {
         return new AjaxResult(false, null, {

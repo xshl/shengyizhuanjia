@@ -262,7 +262,7 @@ export class CategoryService {
     const categoryList = this.localStorageService.get('Category', []);
     let i: number, j: number;
     for (i = 0; i < category.children.length; i++) {
-      if (category.children[i].name.match(/^\s*$/)) {
+      if (category.name.match(/^\s*$/)) {
         return new AjaxResult(false, null, {
           message: '全为空白字符，请重新输入类名',
           details: ''

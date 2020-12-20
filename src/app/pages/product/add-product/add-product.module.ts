@@ -10,6 +10,7 @@ import { AddProductPage } from './add-product.page';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
   providers: [
     BarcodeScanner,
     Camera,
-    ImagePicker
+    ImagePicker,
+    StatusBar
   ],
   declarations: [AddProductPage]
 })

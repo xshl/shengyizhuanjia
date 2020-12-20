@@ -25,9 +25,16 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+/*设置安卓安全区域top高度 预留出状态栏区域*/
+:root {
+    .md{
+      --ion-safe-area-top: 15px;
+    }
+}
+
 ion-title {
     text-align: center;
-    margin-right: 25%;
+    margin-right: 20%;
 }
 
 .nopadding {

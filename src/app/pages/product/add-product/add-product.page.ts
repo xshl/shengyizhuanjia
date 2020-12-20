@@ -8,6 +8,8 @@ import { Subscription } from 'rxjs';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 import { ImagePicker, ImagePickerOptions, OutputType } from '@ionic-native/image-picker/ngx';
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { AjaxResult } from 'src/app/shared/class/ajax-result';
 
 @Component({
   selector: 'app-add-product',
@@ -73,10 +75,6 @@ export class AddProductPage implements OnInit, OnDestroy {
             handler: () => {
               console.log('photos');
               this.onPicture();
-<<<<<<< HEAD
-=======
-
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
             }
           }, {
             text: '取消',
@@ -92,6 +90,10 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   async presentAlertPrompt() {
+    let toast: any;
+      toast = await this.toastController.create({
+        duration: 3000
+      });
     const alert = await this.alertController.create({
       header: '新增供货商',
       cssClass: 'twoBtn',
@@ -99,7 +101,7 @@ export class AddProductPage implements OnInit, OnDestroy {
         {
           name: 'name',
           type: 'text',
-          placeholder: '输入供货商名称'
+          placeholder: '输入供货商名称',
         },
         {
           name: 'phone',
@@ -118,15 +120,71 @@ export class AddProductPage implements OnInit, OnDestroy {
         }, {
           text: '保存',
           handler: (data) => {
-            this.zone.run(() => {
+            // this.product.supplier.name = data.name;
+            // this.product.supplier.phone = data.phone;
+            // this.onPhoneValid(data.phone, data.name).then((res) => {
+            //   console.log(res);
+            //   if (res.success) {
+            //     this.product.supplier.name = data.name;
+            //     this.product.supplier.phone = data.phone;
+            //   } else {
+            //     console.log(11);
+
+            //     // toast.message = res.error.message;
+            //     // toast.present();
+            //     return false;
+            //   }
+            // })
+
+            if (this.onPhoneValid(data.phone, data.name)) {
               this.product.supplier.name = data.name;
               this.product.supplier.phone = data.phone;
-            })
+            } else {
+              toast.message = '电话格式错误或信息为空';
+              toast.present();
+              return false;
+            }
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  // async onPhoneValid(phone: number, name: string): Promise<AjaxResult> {
+  //   const pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$/;
+  //   const pat2 = /^(\d{4}-)?\d{6,8}$/;
+  //   // console.log(name.match(/^\s*$/));
+  //   if (name.match(/^\s*$/)) {
+  //     return new AjaxResult(false, null, {
+  //       message: '供货商姓名不能为空',
+  //       details: ''
+  //     });
+  //   }
+  //   console.log(pat1.test(phone.toString()));
+  //   if (pat1.test(phone.toString()) || pat2.test(phone.toString())) {
+  //     return new AjaxResult(true, null);
+  //   } else {
+  //     return new AjaxResult(false, null, {
+  //       message: '电话格式不正确',
+  //       details: ''
+  //     });
+  //   }
+  // }
+
+  onPhoneValid(phone: number, name: string): boolean {
+    const pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$/;
+    const pat2 = /^(\d{4}-)?\d{6,8}$/;
+    // console.log(name.match(/^\s*$/));
+    if (name.match(/^\s*$/)) {
+      return false;
+    }
+    console.log(pat1.test(phone.toString()));
+    if (pat1.test(phone.toString()) || pat2.test(phone.toString())) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   onScan() {
@@ -165,7 +223,6 @@ export class AddProductPage implements OnInit, OnDestroy {
       //The same,
       outputType: OutputType.DATA_URL
     };
-<<<<<<< HEAD
     // const imagePickerOpt: ImagePickerOptions = {
     //   quality: 50,  // 照片质量，1-100，默认50
     //   outputType: OutputType.DATA_URL,
@@ -178,8 +235,6 @@ export class AddProductPage implements OnInit, OnDestroy {
     //   mediaType: 0, // Camera.MediaType.PICTURE,  媒体类型，默认PICTURE->照片，还有VIDEO等可以选
     //   sourceType: 0 // Camera.PictureSourceType.PHOTOLIBRARY 来源类型，默认CAMERA->相机，还有PHOTOLIBRARY->相册等可以选
     // };
-=======
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.product.images.push('data:image/jpeg;base64,' + results[i]);
@@ -189,11 +244,7 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
-<<<<<<< HEAD
   async onSave(continues: boolean = false){
-=======
-  async onSave(continues: boolean = false) {
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     let toast: any;
     toast = await this.toastController.create({
       duration: 3000

@@ -25,7 +25,8 @@
         <ion-label position="fixed">条码
           <ion-text color="danger">*</ion-text>
         </ion-label>
-        <ion-input name="barCode" required placeholder="输入商品条码" [(ngModel)]="product.barcode" #barCode="ngModel" pattern="/^69\d{11}$/">
+        <ion-input name="barCode" required type="number" placeholder="输入商品条码" [(ngModel)]="product.barcode"
+          #barCode="ngModel" pattern="^69\d{11}$">
         </ion-input>
         <ion-button slot="end" (click)="onScan()">
           <ion-icon slot="icon-only" name="scan-outline" color="syzj"></ion-icon>
