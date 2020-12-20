@@ -24,6 +24,8 @@ export class AppComponent {
       this.splashScreen.hide();
     });
   }
+
+  
 }
 
 export const APP_KEY = 'App';

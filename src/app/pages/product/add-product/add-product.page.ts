@@ -7,6 +7,7 @@ import { Product } from 'src/app/shared/class/product';
 import { Subscription } from 'rxjs';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { ImagePicker, ImagePickerOptions, OutputType } from '@ionic-native/image-picker/ngx';
 
 @Component({
   selector: 'app-add-product',
@@ -26,7 +27,8 @@ export class AddProductPage implements OnInit, OnDestroy {
               private toastController: ToastController,
               private outlet: IonRouterOutlet,
               private barcodeScanner: BarcodeScanner,
-              private camera: Camera) { 
+              private camera: Camera,
+              private imagePicker: ImagePicker) { 
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
       (activeCategory)=> {
       this.product.categoryName = activeCategory.name;
@@ -70,6 +72,7 @@ export class AddProductPage implements OnInit, OnDestroy {
             text: '相册',
             handler: () => {
               console.log('photos');
+              this.onPicture();
             }
           }, {
             text: '取消',
@@ -148,6 +151,34 @@ export class AddProductPage implements OnInit, OnDestroy {
      this.product.images.push(base64Image);
     }, (err) => {
      // Handle error
+    });
+  }
+
+  onPicture() {
+    const options: ImagePickerOptions = {
+      maximumImagesCount: 3 - this.product.images.length,
+      quality: 10,
+      //The same,
+      outputType: OutputType.DATA_URL
+    };
+    // const imagePickerOpt: ImagePickerOptions = {
+    //   quality: 50,  // 照片质量，1-100，默认50
+    //   outputType: OutputType.DATA_URL,
+    //   allow_video: true,
+    // };
+    // const imagePickerOpt = {
+    //   quality: 50,  // 照片质量，1-100，默认50
+    //   destinationType: 0, // Camera.DestinationType.DATA_URL, 返回的数据类型，默认DATA_URL
+    //   enodingType: 0, // Camera.EncodingType.JPEG,  照片格式，默认JPEG，还有PNG可选
+    //   mediaType: 0, // Camera.MediaType.PICTURE,  媒体类型，默认PICTURE->照片，还有VIDEO等可以选
+    //   sourceType: 0 // Camera.PictureSourceType.PHOTOLIBRARY 来源类型，默认CAMERA->相机，还有PHOTOLIBRARY->相册等可以选
+    // };
+    this.imagePicker.getPictures(options).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+        this.product.images.push('data:image/jpeg;base64,' + results[i]);
+      }
+    }, (err) => { 
+      console.log(err);
     });
   }
 

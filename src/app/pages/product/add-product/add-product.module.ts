@@ -9,6 +9,7 @@ import { AddProductPageRoutingModule } from './add-product-routing.module';
 import { AddProductPage } from './add-product.page';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Camera } from '@ionic-native/camera/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { Camera } from '@ionic-native/camera/ngx';
   ],
   providers: [
     BarcodeScanner,
-    Camera
+    Camera,
+    ImagePicker
   ],
   declarations: [AddProductPage]
 })
