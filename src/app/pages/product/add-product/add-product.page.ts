@@ -73,10 +73,6 @@ export class AddProductPage implements OnInit, OnDestroy {
             handler: () => {
               console.log('photos');
               this.onPicture();
-<<<<<<< HEAD
-=======
-
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
             }
           }, {
             text: '取消',
@@ -165,7 +161,6 @@ export class AddProductPage implements OnInit, OnDestroy {
       //The same,
       outputType: OutputType.DATA_URL
     };
-<<<<<<< HEAD
     // const imagePickerOpt: ImagePickerOptions = {
     //   quality: 50,  // 照片质量，1-100，默认50
     //   outputType: OutputType.DATA_URL,
@@ -178,8 +173,6 @@ export class AddProductPage implements OnInit, OnDestroy {
     //   mediaType: 0, // Camera.MediaType.PICTURE,  媒体类型，默认PICTURE->照片，还有VIDEO等可以选
     //   sourceType: 0 // Camera.PictureSourceType.PHOTOLIBRARY 来源类型，默认CAMERA->相机，还有PHOTOLIBRARY->相册等可以选
     // };
-=======
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.product.images.push('data:image/jpeg;base64,' + results[i]);
@@ -189,11 +182,7 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
-<<<<<<< HEAD
   async onSave(continues: boolean = false){
-=======
-  async onSave(continues: boolean = false) {
->>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     let toast: any;
     toast = await this.toastController.create({
       duration: 3000
