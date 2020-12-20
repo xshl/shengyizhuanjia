@@ -30,14 +30,14 @@ export class AddProductPage implements OnInit, OnDestroy {
               private camera: Camera,
               private imagePicker: ImagePicker) { 
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
-      (activeCategory)=> {
-      this.product.categoryName = activeCategory.name;
-      this.product.categoryId = activeCategory.id;
-    }, (error) => {
-      console.log(error)
-    });
+      (activeCategory) => {
+        this.product.categoryName = activeCategory.name;
+        this.product.categoryId = activeCategory.id;
+      }, (error) => {
+        console.log(error)
+      });
     this.product = this.productService.initProduct();
-    this.product.categoryName="默认分类";
+    this.product.categoryName = "默认分类";
   }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class AddProductPage implements OnInit, OnDestroy {
   }
 
   async onPresentActionSheet() {
-    if(this.product.images.length === 3) {
+    if (this.product.images.length === 3) {
       let toast: any;
       toast = await this.toastController.create({
         duration: 3000
@@ -66,13 +66,17 @@ export class AddProductPage implements OnInit, OnDestroy {
             handler: () => {
               console.log('camera');
               this.onCamera();
-              
+
             }
           }, {
             text: '相册',
             handler: () => {
               console.log('photos');
               this.onPicture();
+<<<<<<< HEAD
+=======
+
+>>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
             }
           }, {
             text: '取消',
@@ -134,7 +138,7 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
-  async onCamera() {
+  onCamera() {
     const options: CameraOptions = {
       quality: 10,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -142,15 +146,15 @@ export class AddProductPage implements OnInit, OnDestroy {
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true
     }
-    
+
     this.camera.getPicture(options).then((imageData) => {
-     // imageData is either a base64 encoded string or a file URI
-     // If it's base64 (DATA_URL):
-     let base64Image = 'data:image/jpeg;base64,' + imageData;
-     console.log(imageData);
-     this.product.images.push(base64Image);
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      console.log(imageData);
+      this.product.images.push(base64Image);
     }, (err) => {
-     // Handle error
+      // Handle error
     });
   }
 
@@ -161,6 +165,7 @@ export class AddProductPage implements OnInit, OnDestroy {
       //The same,
       outputType: OutputType.DATA_URL
     };
+<<<<<<< HEAD
     // const imagePickerOpt: ImagePickerOptions = {
     //   quality: 50,  // 照片质量，1-100，默认50
     //   outputType: OutputType.DATA_URL,
@@ -173,6 +178,8 @@ export class AddProductPage implements OnInit, OnDestroy {
     //   mediaType: 0, // Camera.MediaType.PICTURE,  媒体类型，默认PICTURE->照片，还有VIDEO等可以选
     //   sourceType: 0 // Camera.PictureSourceType.PHOTOLIBRARY 来源类型，默认CAMERA->相机，还有PHOTOLIBRARY->相册等可以选
     // };
+=======
+>>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.product.images.push('data:image/jpeg;base64,' + results[i]);
@@ -182,21 +189,25 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
+<<<<<<< HEAD
   async onSave(continues: boolean = false){
+=======
+  async onSave(continues: boolean = false) {
+>>>>>>> 698c12a549d651e02a10a6b215b83da0b2e71119
     let toast: any;
     toast = await this.toastController.create({
-        duration: 3000
+      duration: 3000
     });
-    this.productService.insert(this.product).then((result) =>{
+    this.productService.insert(this.product).then((result) => {
       console.log(result);
       if (result.success === true) {
         toast.message = '商品添加成功';
         toast.present();
-        if (continues){
+        if (continues) {
           console.log('继续添加');
           this.product = this.productService.initProduct();
         }
-        else{
+        else {
           this.router.navigateByUrl('/home');
         }
       } else {
