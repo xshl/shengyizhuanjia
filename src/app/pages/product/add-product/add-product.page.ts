@@ -49,6 +49,10 @@ export class AddProductPage implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * 拍照/相册操作表
+   * @memberof AddProductPage
+   */
   async onPresentActionSheet() {
     if (this.product.images.length === 3) {
       let toast: any;
@@ -89,6 +93,10 @@ export class AddProductPage implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 新增供应商
+   * @memberof AddProductPage
+   */
   async presentAlertPrompt() {
     let toast: any;
       toast = await this.toastController.create({
@@ -120,22 +128,6 @@ export class AddProductPage implements OnInit, OnDestroy {
         }, {
           text: '保存',
           handler: (data) => {
-            // this.product.supplier.name = data.name;
-            // this.product.supplier.phone = data.phone;
-            // this.onPhoneValid(data.phone, data.name).then((res) => {
-            //   console.log(res);
-            //   if (res.success) {
-            //     this.product.supplier.name = data.name;
-            //     this.product.supplier.phone = data.phone;
-            //   } else {
-            //     console.log(11);
-
-            //     // toast.message = res.error.message;
-            //     // toast.present();
-            //     return false;
-            //   }
-            // })
-
             if (this.onPhoneValid(data.phone, data.name)) {
               this.product.supplier.name = data.name;
               this.product.supplier.phone = data.phone;
@@ -151,31 +143,16 @@ export class AddProductPage implements OnInit, OnDestroy {
     await alert.present();
   }
 
-  // async onPhoneValid(phone: number, name: string): Promise<AjaxResult> {
-  //   const pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$/;
-  //   const pat2 = /^(\d{4}-)?\d{6,8}$/;
-  //   // console.log(name.match(/^\s*$/));
-  //   if (name.match(/^\s*$/)) {
-  //     return new AjaxResult(false, null, {
-  //       message: '供货商姓名不能为空',
-  //       details: ''
-  //     });
-  //   }
-  //   console.log(pat1.test(phone.toString()));
-  //   if (pat1.test(phone.toString()) || pat2.test(phone.toString())) {
-  //     return new AjaxResult(true, null);
-  //   } else {
-  //     return new AjaxResult(false, null, {
-  //       message: '电话格式不正确',
-  //       details: ''
-  //     });
-  //   }
-  // }
-
+  /**
+   * 验证电话号码是否有效，验证姓名电话是否填写
+   * @param {number} phone
+   * @param {string} name
+   * @return {*}  {boolean}
+   * @memberof AddProductPage
+   */
   onPhoneValid(phone: number, name: string): boolean {
     const pat1 = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,3,5-9]))\d{8}$/;
     const pat2 = /^(\d{4}-)?\d{6,8}$/;
-    // console.log(name.match(/^\s*$/));
     if (name.match(/^\s*$/)) {
       return false;
     }
@@ -187,6 +164,10 @@ export class AddProductPage implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * 扫描条形码
+   * @memberof AddProductPage
+   */
   onScan() {
     this.barcodeScanner.scan().then(barcodeData => {
       console.log('Barcode data', barcodeData);
@@ -196,6 +177,10 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * 拍照
+   * @memberof AddProductPage
+   */
   onCamera() {
     const options: CameraOptions = {
       quality: 10,
@@ -216,25 +201,16 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * 访问相册
+   * @memberof AddProductPage
+   */
   onPicture() {
     const options: ImagePickerOptions = {
       maximumImagesCount: 3 - this.product.images.length,
       quality: 10,
-      //The same,
       outputType: OutputType.DATA_URL
     };
-    // const imagePickerOpt: ImagePickerOptions = {
-    //   quality: 50,  // 照片质量，1-100，默认50
-    //   outputType: OutputType.DATA_URL,
-    //   allow_video: true,
-    // };
-    // const imagePickerOpt = {
-    //   quality: 50,  // 照片质量，1-100，默认50
-    //   destinationType: 0, // Camera.DestinationType.DATA_URL, 返回的数据类型，默认DATA_URL
-    //   enodingType: 0, // Camera.EncodingType.JPEG,  照片格式，默认JPEG，还有PNG可选
-    //   mediaType: 0, // Camera.MediaType.PICTURE,  媒体类型，默认PICTURE->照片，还有VIDEO等可以选
-    //   sourceType: 0 // Camera.PictureSourceType.PHOTOLIBRARY 来源类型，默认CAMERA->相机，还有PHOTOLIBRARY->相册等可以选
-    // };
     this.imagePicker.getPictures(options).then((results) => {
       for (var i = 0; i < results.length; i++) {
         this.product.images.push('data:image/jpeg;base64,' + results[i]);
@@ -244,6 +220,11 @@ export class AddProductPage implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * 保存商品信息
+   * @param {boolean} [continues=false] false为直接保存，true为继续添加
+   * @memberof AddProductPage
+   */
   async onSave(continues: boolean = false){
     let toast: any;
     toast = await this.toastController.create({

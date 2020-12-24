@@ -312,7 +312,12 @@ export class CategoryService {
   watchCategory():Observable<ActiveCategory>{
     return this.activeCategory.asObservable();
   }
-  //向订阅者发送通知，传送数据
+  
+  /**
+   * 向订阅者发送通知，传送数据
+   * @param {ActiveCategory} category
+   * @memberof CategoryService
+   */
   setActiveCategory(category: ActiveCategory){
     this.activeCategory.next(category);
   }

@@ -11,6 +11,11 @@ export class ProductService {
 
   constructor(private localStorageService: LocalStorageService) { }
 
+  /**
+   * 初始化商品
+   * @return {*}  {Product}
+   * @memberof ProductService
+   */
   initProduct(): Product {
     return {
       id: '',
@@ -33,6 +38,12 @@ export class ProductService {
     };
   }
 
+  /**
+   * 新增商品
+   * @param {Product} input 商品信息
+   * @return {*}  {Promise<AjaxResult>}
+   * @memberof ProductService
+   */
   async insert(input: Product): Promise<AjaxResult>{
     input.id = UUID.UUID();
     const products = this.localStorageService.get("product",[]);
@@ -55,7 +66,4 @@ export class ProductService {
     this.localStorageService.set("product", products);
     return new AjaxResult(true, null);
   }
-
-  
-
 }
