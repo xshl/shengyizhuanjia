@@ -38,6 +38,7 @@ export class CategoryAddPage implements OnInit {
     } else {
       this.title = '新增小分类';
     }
+    console.log(this.id);
     this.category = this.categoryService.initCategory(this.id, this.name);
   }
 

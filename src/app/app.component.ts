@@ -27,11 +27,12 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
-      let category = new Category();
-      category.name = "默认分类";
-      category.id = 1;
       const categoryList =  this.localStorageService.get('Category', []);
       if (categoryList.length == 0) {
+        let category = new Category();
+        category.name = "默认分类";
+        category.id = 1;
+        category.children = [];
         categoryList.push(category);
         this.localStorageService.set('Category', categoryList);
       }

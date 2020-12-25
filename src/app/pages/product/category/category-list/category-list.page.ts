@@ -63,6 +63,7 @@ export class CategoryListPage implements OnInit {
    * @memberof CategoryListPage
    */
   selectCategory(id: number) {
+    console.log(id);
     this.activeCategory = this.categories[id - 1];
     this.activeSubCategories = this.activeCategory.children;
   }
