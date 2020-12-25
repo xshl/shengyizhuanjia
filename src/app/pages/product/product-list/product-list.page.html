@@ -33,7 +33,7 @@
 
   <ion-grid *ngIf="total" class="nopadding">
     <ion-toolbar color="light">
-      <ion-searchbar placeholder="请输入商品名称、拼音、数字" [(ngModel)]="queryTerm" (ionInput)="onInput($event)">
+      <ion-searchbar placeholder="请输入商品名称、拼音、数字" [(ngModel)]="queryTerm" (ionInput)="onInput($event)" class="searchbar">
       </ion-searchbar>
       <ion-buttons slot="end">
         <ion-button fill="outline" color="syzj" size="small">商品盘点</ion-button>

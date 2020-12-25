@@ -1,7 +1,7 @@
 .ion-text-center {
     text-align: center;
 }
-.storageNum{
+.storageNum {
     margin-left: 3%;
 }
 .detail {
@@ -19,4 +19,7 @@
     margin: 10px auto;
     color: #666;
     font-size: small;
+}
+.sc-ion-searchbar-md-h {
+    --box-shadow: none;
 }
