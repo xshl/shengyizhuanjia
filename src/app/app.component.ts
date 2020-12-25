@@ -1,8 +1,11 @@
+import { CurrentLogin } from './shared/class/current-login';
+import { LocalStorageService } from './shared/services/local-storage.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Category } from './shared/class/category';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +16,8 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private localStorageService: LocalStorageService
   ) {
     this.initializeApp();
   }
@@ -23,6 +27,14 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
+      let category = new Category();
+      category.name = "默认分类";
+      category.id = 1;
+      const categoryList =  this.localStorageService.get('Category', []);
+      if (categoryList.length == 0) {
+        categoryList.push(category);
+        this.localStorageService.set('Category', categoryList);
+      }
     });
   }
 
