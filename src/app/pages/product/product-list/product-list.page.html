@@ -1,0 +1,81 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="syzj">
+    <ion-buttons slot="start">
+      <ion-back-button text="返回"></ion-back-button>
+    </ion-buttons>
+    <ion-title>商品管理</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="onRefresh($event)" >
+    <ion-refresher-content
+      pullingIcon="arrow-down"
+      pullingText="下拉可以刷新"
+      refreshingSpinner="circles"
+      refreshingText="正在加载..."> 
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="total === 0" class="ion-text-center">
+    <img src="../../../../assets/img/product-list/commodity_no.png" alt="">
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <ion-item lines="none" >
+        <ion-text color="medium" >您还没有任何商品信息</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-text color="medium" >您可以</ion-text>
+      </ion-item>
+    </div>
+    <ion-button type="button" align:center color="syzj" (click)="addProduct()">新增商品</ion-button>
+  </ion-grid>
+
+  <ion-grid *ngIf="total" class="nopadding">
+    <ion-toolbar color="light">
+      <ion-searchbar placeholder="请输入商品名称、拼音、数字" [(ngModel)]="queryTerm" (ionInput)="onInput($event)">
+      </ion-searchbar>
+      <ion-buttons slot="end">
+        <ion-button fill="outline" color="syzj" size="small">商品盘点</ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-item>
+      <ion-text class="total" color="medium">总正库存<span>{{totalStorageNum}}</span>件，总成本<span>{{[totalPrice | number:'1.2-2']}}</span>元</ion-text>
+      <ion-buttons slot="end">
+          <ion-icon slot="end" color="syzj" name="notifications"></ion-icon>
+          <ion-icon color="syzj" name="add"  slot="end" routerLink="/add-product"></ion-icon>
+      </ion-buttons>
+    </ion-item>
+    <ion-item *ngFor="let product of currentProduct" detail>
+      <ion-col size="2">
+        <ion-thumbnail>
+          <img src="assets/img/product-list/c_goodspicture.png" *ngIf="product.images.length == 0" />
+          <img [src]="product.images[0]" *ngIf="product.images.length > 0" />
+          <!-- To show the pirctures of goods if they exist -->
+        </ion-thumbnail>
+      </ion-col>
+      <ion-col size="9">
+        <ion-row><ion-text>{{product.name}}</ion-text></ion-row>
+        <ion-row><ion-text color="syzj">¥{{product.price}}</ion-text></ion-row>
+        <ion-row class="detail">
+          <ion-text color="medium">条码：{{product.barcode}} </ion-text>
+          <ion-text color="medium" class="storageNum"> 库存：{{product.StorageNum}}件</ion-text>
+        </ion-row>
+      </ion-col>
+    </ion-item>
+  </ion-grid>
+
+  <ion-grid *ngIf="productCount == products?.length" class="noticeEnd">
+    已经到底啦，没有更多了
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="onInfinite($event)" *ngIf="productCount != products?.length">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="加载更多商品数据...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  
+  
+</ion-content>

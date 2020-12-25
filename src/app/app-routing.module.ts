@@ -32,7 +32,11 @@ const routes: Routes = [
   {
     path: 'add-product',
     loadChildren: () => import('./pages/product/add-product/add-product.module').then( m => m.AddProductPageModule)
-  }
+  },
+  {
+    path: 'product-list',
+    loadChildren: () => import('./pages/product/product-list/product-list.module').then( m => m.ProductListPageModule)
+  },
 ];
 @NgModule({
   imports: [

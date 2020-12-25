@@ -22,7 +22,7 @@ const routes: Routes = [
   {
     path: 'edit-name',
     loadChildren: () => import('./category/category-name-edit/category-name-edit.module').then( m => m.CategoryNameEditPageModule)
-  },
+  }
 ];
 
 @NgModule({

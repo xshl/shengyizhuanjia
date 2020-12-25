@@ -240,7 +240,8 @@ export class AddProductPage implements OnInit, OnDestroy {
           this.product = this.productService.initProduct();
         }
         else {
-          this.router.navigateByUrl('/home');
+          this.outlet.pop(1);
+          this.router.navigateByUrl('/product-list');
         }
       } else {
         toast.message = result.error.message;
