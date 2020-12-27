@@ -91,11 +91,11 @@ export class ProductService {
     })
   }
 
-  async getListByCategoryId(categoryId: string): Promise<AjaxResult> {
+  async getListByCategoryId(categoryId: number): Promise<AjaxResult> {
     const productList: Product[] = this.localStorageService.get('Product', []);
-    let result: Product[];
+    let result = [];
     for (const product of productList) {
-      if (product.id === categoryId) {
+      if (product.categoryId === categoryId) {
         result.push(product);
       }
     }

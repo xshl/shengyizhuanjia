@@ -23,3 +23,11 @@
 .sc-ion-searchbar-md-h {
     --box-shadow: none;
 }
+ion-button {
+    --box-shadow: none;
+}
+.share {
+    border: var(--ion-color-syzj) 1px solid;
+    border-radius: 50%;
+    padding: 3px;
+}

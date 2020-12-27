@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { CategoryService } from './../../../shared/services/category.service';
 import { async } from '@angular/core/testing';
 import { ProductService } from './../../../shared/services/product.service';
 import { LocalStorageService } from './../../../shared/services/local-storage.service';
@@ -5,6 +7,7 @@ import { Product } from './../../../shared/class/product';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController, ToastController } from '@ionic/angular';
 import { AjaxResult } from 'src/app/shared/class/ajax-result';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -23,21 +26,47 @@ export class ProductListPage implements OnInit {
   private totalPrice: number;       // 总成本
   private isAddProduct: boolean;    // 是否在当前页面点击新增商品
   private productCount: number;
+  private isBackFromCategoryList: boolean;
+
+  
+  subscription: Subscription;
 
   constructor(private loadingController: LoadingController,
     private productService: ProductService,
-    private toastController: ToastController) {
+    private toastController: ToastController,
+    private categoryService: CategoryService,
+    private router: Router) {
     this.categoryId = -1;
     this.currentIndex = 0;
     this.productCount = 0;
+    this.isBackFromCategoryList = false;
+    this.isAddProduct = false;
+    console.log('isAdd' + this.isAddProduct);
+    this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
+      (activeCategory) => {
+        console.log('返回');
+        if (!this.isAddProduct) {
+          this.categoryId = activeCategory.id;
+          console.log(this.categoryId);
+          this.getListByCategoryId();
+          this.isBackFromCategoryList = true;
+        }
+      }, (error) => {
+        console.log(error)
+      });
   }
 
   async ngOnInit() {
-    this.onLoadData();
+    // this.onLoadData();
   }
 
   ionViewWillEnter(){
-    this.onLoadData();
+    // console.log('加载全部数据');
+    if (!this.isBackFromCategoryList) {
+      console.log('加载全部数据');
+      this.isBackFromCategoryList = false;
+      this.onLoadData();
+    }
   }
 
   async onLoadData() {
@@ -75,9 +104,11 @@ export class ProductListPage implements OnInit {
     this.currentIndex = 0;
     const condition = event.target.value;
     if (condition == '') {
-      this.products = this.productService.getAllProduct();
+      // this.products = this.productService.getAllProduct();
+      this.ionViewWillEnter();
     } else {
       this.productService.getListByCondition(condition).then((res) => {
+        console.log('jiazai');
         if (res.success) {
           this.products = res.result;
         } else {
@@ -138,6 +169,43 @@ export class ProductListPage implements OnInit {
       }
       infiniteScroll.complete();
     }, 500);
+  }
+
+  getListByCategoryId(){
+    this.productService.getListByCategoryId(this.categoryId).then((res) => {
+      if (res.success) {
+        console.log(res);
+        this.products = res.result;
+        console.log('byid');
+        console.log(this.products);
+        this.productService.getList(this.products, this.currentIndex, 10).then((res) => {
+          if (res.success) {
+            this.productCount = res.result.total;
+            this.currentProduct = res.result.currentproductList;
+            this.totalPrice = this.productService.getTotalPrice(this.products);
+            this.totalStorageNum = this.productService.getTotalStorageNum(this.products);
+          } else {
+            console.log(res.error.message);
+          }
+        });
+      } else {
+        console.log(res.error.message);
+      }
+    });
+  }
+
+  onAddProduct() {
+    this.isAddProduct = true;
+    this.router.navigateByUrl('/add-product');
+  }
+
+  searchByCategory() {
+    this.isAddProduct = false;
+    this.router.navigate(['/product/category/list'],{
+      queryParams: {
+        id: 0
+      }
+    })
   }
 
 }
