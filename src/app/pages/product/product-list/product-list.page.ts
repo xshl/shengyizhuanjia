@@ -79,6 +79,7 @@ export class ProductListPage implements OnInit {
     try {
       this.products = this.productService.getAllProduct();
       this.total = this.products.length;
+      this.currentIndex = 0;
       // const ajaxResult: AjaxResult = await this.productService.getList(this.currentIndex, 10);
       this.productService.getList(this.products, this.currentIndex, 10).then((res) => {
         if (res.success) {
@@ -101,12 +102,12 @@ export class ProductListPage implements OnInit {
   }
 
   async onInput(event) {
-    this.currentIndex = 0;
     const condition = event.target.value;
     if (condition == '') {
       // this.products = this.productService.getAllProduct();
       this.ionViewWillEnter();
     } else {
+      this.currentIndex = 0;
       this.productService.getListByCondition(condition).then((res) => {
         console.log('jiazai');
         if (res.success) {
@@ -172,6 +173,7 @@ export class ProductListPage implements OnInit {
   }
 
   getListByCategoryId(){
+    this.currentIndex = 0;
     this.productService.getListByCategoryId(this.categoryId).then((res) => {
       if (res.success) {
         console.log(res);
