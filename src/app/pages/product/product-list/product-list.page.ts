@@ -69,6 +69,10 @@ export class ProductListPage implements OnInit {
     }
   }
 
+  /**
+   * 加载全部数据
+   * @memberof ProductListPage
+   */
   async onLoadData() {
     // 自行添加初始化代码
     const loading = await this.loadingController.create({
@@ -101,6 +105,11 @@ export class ProductListPage implements OnInit {
     }
   }
 
+  /**
+   * 查询框
+   * @param {*} event
+   * @memberof ProductListPage
+   */
   async onInput(event) {
     const condition = event.target.value;
     if (condition == '') {
@@ -129,6 +138,11 @@ export class ProductListPage implements OnInit {
     });
   }
 
+  /**
+   * 下拉刷新
+   * @param {*} event
+   * @memberof ProductListPage
+   */
   async onRefresh(event) {
     this.currentIndex = 0;
     const refresher = event.target;
@@ -145,6 +159,11 @@ export class ProductListPage implements OnInit {
     refresher.complete();
   }
 
+  /**
+   * 上拉加载下一页
+   * @param {*} event
+   * @memberof ProductListPage
+   */
   async onInfinite(event) {
     const infiniteScroll = event.target;
     this.currentIndex++;
@@ -172,6 +191,10 @@ export class ProductListPage implements OnInit {
     }, 500);
   }
 
+  /**
+   * 根据分类Id获取列表
+   * @memberof ProductListPage
+   */
   getListByCategoryId(){
     this.currentIndex = 0;
     this.productService.getListByCategoryId(this.categoryId).then((res) => {
@@ -196,11 +219,19 @@ export class ProductListPage implements OnInit {
     });
   }
 
+  /**
+   * 跳转到新增商品
+   * @memberof ProductListPage
+   */
   onAddProduct() {
     this.isAddProduct = true;
     this.router.navigateByUrl('/add-product');
   }
 
+  /**
+   * 跳转到分类列表
+   * @memberof ProductListPage
+   */
   searchByCategory() {
     this.isAddProduct = false;
     this.router.navigate(['/product/category/list'],{

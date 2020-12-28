@@ -68,6 +68,14 @@ export class ProductService {
   }
 
 
+  /**
+   * 商品列表分页
+   * @param {Product[]} products  商品信息
+   * @param {number} index 页码
+   * @param {number} size 每页大小
+   * @return {*}  {Promise<AjaxResult>}
+   * @memberof ProductService
+   */
   async getList(products: Product[], index: number, size: number): Promise<AjaxResult> {
     if (index < 0) {
       // 实际开发中应抛出异常类对象
@@ -91,6 +99,12 @@ export class ProductService {
     })
   }
 
+  /**
+   * 根据分类号获取商品
+   * @param {number} categoryId
+   * @return {*}  {Promise<AjaxResult>}
+   * @memberof ProductService
+   */
   async getListByCategoryId(categoryId: number): Promise<AjaxResult> {
     const productList: Product[] = this.localStorageService.get('Product', []);
     let result = [];
@@ -102,6 +116,12 @@ export class ProductService {
     return new AjaxResult(true, result);
   }
 
+  /**
+   * 获取库存总量
+   * @param {Product[]} products
+   * @return {*}  {number}
+   * @memberof ProductService
+   */
   getTotalStorageNum(products: Product[]): number {
     let totalStorageNum = 0;
     for (const product of products) {
@@ -110,6 +130,12 @@ export class ProductService {
     return totalStorageNum;
   }
 
+  /**
+   * 获取总成本
+   * @param {Product[]} products
+   * @return {*}  {number}
+   * @memberof ProductService
+   */
   getTotalPrice(products: Product[]): number {
     let totalPrice = 0;
     for (const product of products) {
@@ -118,6 +144,12 @@ export class ProductService {
     return totalPrice;
   }
 
+  /**
+   * 根据条件筛选商品
+   * @param {*} searchProductInput 商品名或条码
+   * @return {*}  {Promise<AjaxResult>}
+   * @memberof ProductService
+   */
   async getListByCondition(searchProductInput: any): Promise<AjaxResult> {
     const productList: Product[] = this.localStorageService.get('Product', []);
     let result = [];
@@ -130,6 +162,11 @@ export class ProductService {
     return new AjaxResult(true, result);
   }
 
+  /**
+   * 获取所有商品
+   * @return {*}  {Product[]}
+   * @memberof ProductService
+   */
   getAllProduct(): Product[] {
     const productList = this.localStorageService.get('Product', []);
     return productList;
