@@ -110,25 +110,25 @@ export class ProductDetailPage implements OnInit {
         icon: 'logo-wechat',
         //icons, there are a lot of icons in the website of Ionic, choose whatever you like
         handler: () => {
-          console.log('WeChat');
+          console.log('分享给微信好友');
         }
       },{
         text: '朋友圈',
         icon: 'aperture-outline',
         handler: () => {
-          console.log('Moments');
+          console.log('分享到朋友圈');
         }
       },{
         text: '短信',
         icon: 'mail',
         handler: () => {
-          console.log('text');
+          console.log('发送到短信');
         }
       },{
         text: 'QQ',
         icon: 'logo-tux',
         handler: () => {
-          console.log('QQ');
+          console.log('分享到QQ');
         }
       },{
         text: '取消',
