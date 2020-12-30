@@ -41,7 +41,6 @@ export class ProductListPage implements OnInit {
     this.productCount = 0;
     this.isBackFromCategoryList = false;
     this.isAddProduct = false;
-    console.log('isAdd' + this.isAddProduct);
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
       (activeCategory) => {
         console.log('返回');
@@ -63,7 +62,6 @@ export class ProductListPage implements OnInit {
   ionViewWillEnter(){
     // console.log('加载全部数据');
     if (!this.isBackFromCategoryList) {
-      console.log('加载全部数据');
       this.isBackFromCategoryList = false;
       this.onLoadData();
     }

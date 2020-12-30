@@ -138,7 +138,7 @@ export class PassportServiceService {
         details: ''
       });
     }
-    if (!(await this.checkPsd(loginIdentifier, password)).success) {
+    if (!(this.checkPsd(loginIdentifier, password))) {
       return new AjaxResult(false, null, {
         message: '密码错误',
         details: ''
@@ -195,18 +195,15 @@ export class PassportServiceService {
    * @return {*}  {boolean} 是否正确
    * @memberof PassportServiceService
    */
-  async checkPsd(loginIdentifier: string, password: string): Promise<AjaxResult> {
+  checkPsd(loginIdentifier: string, password: string): boolean {
     const user = this.getUser(loginIdentifier);
     const passwordToken = Md5.hashStr(password).toString();
-    console.log(user.passwordToken);
-    console.log(passwordToken);
+    // console.log(user.passwordToken);
+    // console.log(passwordToken);
     if (user.passwordToken === passwordToken) {
-      return new AjaxResult(true, null);
+      return true;
     }
-    return new AjaxResult(false, null, {
-      message: '密码错误',
-      details: ''
-    });
+    return false;
   }
 
   /*
@@ -222,7 +219,7 @@ export class PassportServiceService {
         return user;
       }
     }
-    return null;
+    return new User;
   }
 
   /*

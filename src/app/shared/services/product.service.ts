@@ -27,7 +27,7 @@ export class ProductService {
       images: [],
       price: null,
       importPrice: null,
-      StorageNum: null,
+      StorageNum: 0,
       supplier: {
         id: 0,
         name: null,
@@ -170,5 +170,32 @@ export class ProductService {
   getAllProduct(): Product[] {
     const productList = this.localStorageService.get('Product', []);
     return productList;
+  }
+
+  getProductByBarcode(barcode: string): Product {
+    const productList = this.localStorageService.get('Product', []);
+    let res = this.initProduct();
+    for (const product of productList) {
+      if (product.barcode == barcode) {
+        res = product;
+        break;
+      }
+    }
+    return res;
+  }
+
+  deleteProductByBarcode(barcode: string): boolean {
+    const temp = this.localStorageService.get('Product', []);
+    if( temp === null || temp.length === 0){
+      return false;
+    }
+    for(let i = 0; i < temp.length; i++){
+      if(temp[i].barcode == barcode){
+        temp.splice(i, 1);
+        this.localStorageService.set('Product', temp);
+        return true;
+      }
+    }
+    return false;
   }
 }

@@ -25,3 +25,205 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+/*设置安卓安全区域top高度 预留出状态栏区域*/
+:root {
+    .md{
+      --ion-safe-area-top: 15px;
+    }
+}
+
+ion-title {
+    text-align: center;
+    margin-right: 20%;
+}
+
+.nopadding {
+    padding: 0;
+}
+
+.label-floating.sc-ion-label-md-h {
+    color: #aaa;
+}
+
+.item-has-focus .label-floating.sc-ion-label-md-h:not(.ion-color) {
+    color: #aaa;
+}
+
+/* actionSheetController 样式 */
+.ascCss {
+    .action-sheet-group {
+        width: 98%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        background-color:rgba(255,255,255,0.9);
+
+        .action-sheet-title {
+            color: #000;
+            background: #fefef9;
+            text-align: center;
+            border-bottom: solid 1px #ccc;
+        }
+
+        .action-sheet-button-inner.sc-ion-action-sheet-md {
+            justify-content: center;
+        }
+
+        .disable-hover {
+            border-top: 1px solid #e1dce6;
+
+            .button-inner {
+                .icon {
+                    color: #ccc;
+                }
+            }
+        }
+
+        .action-sheet-cancel {
+            margin-bottom: 0px;
+            background-color:rgba(255,255,255);
+        }
+    }
+
+    .action-sheet-group:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.ascCssShare {
+    .action-sheet-group {
+        width: 98%;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 10px;
+        margin-bottom: 5px;
+        background-color:rgba(255,255,255,0.9);
+        display: flex;
+        height: 150px;
+        flex-direction: row;
+        align-items: center;
+
+        .action-sheet-title {
+            color: #000;
+            background: #fefef9;
+            text-align: center;
+            border-bottom: solid 1px #ccc;
+        }
+
+        .action-sheet-icon {
+            color: var(--ion-color-syzj);
+            margin: 0;
+            padding: 15px;
+            border-radius: 50%;
+            background-color: #fde6e0;
+        }
+
+
+        .action-sheet-button-inner.sc-ion-action-sheet-md {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            color: #666;
+        }
+
+        
+
+        .disable-hover {
+            border-top: 1px solid #e1dce6;
+
+            .button-inner {
+                .icon {
+                    color: #ccc;
+                }
+            }
+        }
+
+        .action-sheet-cancel {
+            margin-bottom: 0px;
+            background-color:rgba(255,255,255);
+        }
+
+    }
+
+    .action-sheet-button {
+        height: 100px;
+    }
+
+    .action-sheet-group:last-child {
+        padding-bottom: 0;
+        height: 52px;
+    }
+
+}
+
+/* 单个按钮alter样式 */
+.oneBtn {
+    .alert-wrapper {
+        border-radius: 10px;
+    }
+
+    .alert-title {
+        text-align: center;
+        margin-top: -10px;
+    }
+
+    .alert-button-group {
+        padding: 0;
+        border-top: 1px solid #e1dce6;
+        justify-content: center;
+    }
+
+    .alert-message {
+        max-height: 240px;
+        text-align: center;
+    }
+
+    .alert-button-inner.sc-ion-alert-md {
+        justify-content: center !important;
+    }
+
+    .alert-button {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+/* 两个按钮alter样式 */
+.twoBtn {
+    .alert-wrapper {
+        border-radius: 10px;
+    }
+
+    .alert-title {
+        text-align: center;
+        font-size: 13pt;
+    }
+
+    .alert-button-group {
+        padding: 0;
+        border-top: 1px solid #e1dce6;
+        justify-content: center;
+    }
+
+    .alert-message {
+        max-height: 240px;
+        text-align: center;
+    }
+
+    .alert-button-inner.sc-ion-alert-md {
+        justify-content: center !important;
+    }
+    
+    .alert-button {
+        width: 50%;
+        border-left: 1px solid #e1dce6;
+        margin: 0;
+        .button-inner {
+            justify-content: center;
+        }
+    }
+}
+
+

@@ -39,19 +39,18 @@ export class ChangePasswordPage implements OnInit {
         duration: 3000
       });
       const user = this.passportService.getCurrentUser();
-      this.passportService.checkPsd(user.phone, this.changepassword.oldPassword).then((res) => {
-        console.log(res);
-        if (res.success === true) {
-          this.passportService.updatePsd(user.phone, this.changepassword.newPassword);
-          toast.message = '密码修改成功';
-          toast.present();
-          this.outlet.pop(1);
-          this.router.navigateByUrl('/setting');
-        } else {
-          toast.message = res.error.message;
-          toast.present();
-        }
-      });
+      const res = this.passportService.checkPsd(user.phone, this.changepassword.oldPassword)
+      console.log(res);
+      if (res === true) {
+        this.passportService.updatePsd(user.phone, this.changepassword.newPassword);
+        toast.message = '密码修改成功';
+        toast.present();
+        this.outlet.pop(1);
+        this.router.navigateByUrl('/setting');
+      } else {
+        toast.message = '密码错误';
+        toast.present();
+      }
     }
   }
 

@@ -49,7 +49,7 @@
           <ion-icon color="syzj" name="add"  slot="end" (click)="onAddProduct()"></ion-icon>
       </ion-buttons>
     </ion-item>
-    <ion-item *ngFor="let product of currentProduct">
+    <ion-item *ngFor="let product of currentProduct" routerLink="/product-detail" [queryParams]="{barcode: product.barcode}">
       <ion-col size="2">
         <ion-thumbnail>
           <img src="assets/img/product-list/c_goodspicture.png" *ngIf="product.images.length == 0" />
