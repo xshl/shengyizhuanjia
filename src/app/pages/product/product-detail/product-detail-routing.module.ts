@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: 'popover',
     loadChildren: () => import('./popover/popover.module').then( m => m.PopoverPageModule)
+  },
+  {
+    path: 'change-product-storage',
+    loadChildren: () => import('./change-product-storage/change-product-storage.module').then( m => m.ChangeProductStoragePageModule)
   }
 ];
 

@@ -60,7 +60,7 @@
   <ion-toolbar>
     <ion-row>
       <ion-col>
-        <ion-button expand="full" color="syzj" (click)="ModifyProductStorage()">出/入库</ion-button>
+        <ion-button expand="full" color="syzj" routerLink="change-product-storage" [queryParams]="{barcode: product.barcode}">出/入库</ion-button>
       </ion-col>
       <ion-col>
         <ion-button expand="full" color="syzj" (click)="onPresentActionSheet()">分享</ion-button>
