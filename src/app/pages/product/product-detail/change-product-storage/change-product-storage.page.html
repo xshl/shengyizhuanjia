@@ -11,12 +11,13 @@
 </ion-header>
 
 <ion-content class="nopadding" color="light">
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="IncreOrDecre" color="syzj">
+  <div class="select">
+    <ion-segment [(ngModel)]="IncreOrDecre">
       <ion-segment-button value="IncreaseStorage" >入库</ion-segment-button> <!--Don't check?-->
       <ion-segment-button value="DecreaseStorage">出库</ion-segment-button>
     </ion-segment>
-  </ion-toolbar>
+  </div>
+    
   <form #modifyInfor="ngForm">
     <ion-list>
       <ion-item>
