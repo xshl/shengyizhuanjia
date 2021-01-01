@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { Product } from './../class/product';
 import { LocalStorageService } from './local-storage.service';
 import { Injectable } from '@angular/core';
@@ -197,5 +198,16 @@ export class ProductService {
       }
     }
     return false;
+  }
+
+  async ChangeProduct(productChange: Product): Promise<AjaxResult> {
+    const productList = this.localStorageService.get('Product', []);
+    for (let product of productList) {
+      if (product.id == productChange.id) {
+        product = productChange;
+        return new AjaxResult(true, null);
+      }
+    }
+    return new AjaxResult(false, null);
   }
 }

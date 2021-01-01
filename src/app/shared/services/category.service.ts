@@ -43,11 +43,8 @@ export class CategoryService {
     const categorychild = new Category();
     if (id == 0) {
       category.id = this.getCategoryLength();
-      category.name = '';
+      category.name = name;
       category.children = [];
-      categorychild.id = category.id * 10 + 1;
-      categorychild.name = '';
-      categorychild.children = [];
       category.children.push(categorychild);
     } else {
       category.id = id;
