@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'change-product-storage',
     loadChildren: () => import('./change-product-storage/change-product-storage.module').then( m => m.ChangeProductStoragePageModule)
+  },
+  {
+    path: 'storage-log',
+    loadChildren: () => import('./storage-log/storage-log.module').then( m => m.StorageLogPageModule)
   }
 ];
 

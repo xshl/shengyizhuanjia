@@ -1,3 +1,5 @@
+import { CATEGORIES } from './shared/class/mock.categories';
+import { CategoryService } from './shared/services/category.service';
 import { CurrentLogin } from './shared/class/current-login';
 import { LocalStorageService } from './shared/services/local-storage.service';
 import { Component } from '@angular/core';
@@ -17,7 +19,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private categoryService: CategoryService
   ) {
     this.initializeApp();
   }
@@ -28,13 +31,9 @@ export class AppComponent {
       this.statusBar.overlaysWebView(true);
       this.splashScreen.hide();
       const categoryList =  this.localStorageService.get('Category', []);
+      console.log(categoryList.length);
       if (categoryList.length == 0) {
-        let category = new Category();
-        category.name = "默认分类";
-        category.id = 1;
-        category.children = [];
-        categoryList.push(category);
-        this.localStorageService.set('Category', categoryList);
+        this.localStorageService.set('Category', CATEGORIES)
       }
     });
   }

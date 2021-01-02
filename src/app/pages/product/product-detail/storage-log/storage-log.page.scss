@@ -1,0 +1,17 @@
+.productname {
+    text-align: center;
+    position: sticky;
+    top: 0;
+
+    height: 35px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-size: small;
+    color: var(--ion-color-syzj);
+    border-bottom: var(--ion-color-light) 1px solid;
+
+}
+ion-card{
+    margin-bottom: 5px;
+}

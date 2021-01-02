@@ -52,6 +52,7 @@ export class CategoryListPage implements OnInit {
           this.activeCategory = this.categories[this.id - 1];
         }
         this.activeSubCategories = this.activeCategory.children;
+        // console.log(this.activeCategory);
         this.activeSubCategory = this.activeSubCategories[0];
       }
     });
