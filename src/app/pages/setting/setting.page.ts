@@ -14,7 +14,8 @@ export class SettingPage implements OnInit {
   constructor(private localstorageService: LocalStorageService,
               private outlet: IonRouterOutlet,
               private router: Router,
-              private nav: NavController) { }
+              private nav: NavController,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
     const app = this.localstorageService.get('App', []);
@@ -23,14 +24,14 @@ export class SettingPage implements OnInit {
 
   onLogout(){
     this.localstorageService.set('CurrentLogin', []);
-    this.outlet.pop(2);
-    this.router.navigateByUrl('/passport/login');
+    this.navCtrl.navigateRoot(['/passport/login']);
+    // this.router.navigateByUrl('/passport/login');
   }
 
-  back() {
-    this.outlet.pop(1);
-    this.router.navigateByUrl('tabs/me');
-    // this.nav.navigateRoot('tabs/me');
-  }
+  // back() {
+  //   this.outlet.pop(1);
+  //   this.router.navigateByUrl('tabs/me');
+  //   // this.nav.navigateRoot('tabs/me');
+  // }
 
 }
