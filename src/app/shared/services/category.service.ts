@@ -61,18 +61,20 @@ export class CategoryService {
     return category;
   }
 
-  /*
-   * 判断商品类别名字是否唯一
-   * @param {Category} category 商品类别
+  /**
+   * 判断类名是否重复
+   * @param {Category} category
+   * @param {number} type 0:新增分类
    * @return {*}  {Promise<AjaxResult>}
    * @memberof CategoryService
    */
-  async isUniqueName(category: Category): Promise<AjaxResult> {
+  async isUniqueName(category: Category, type: number): Promise<AjaxResult> {
     const categoryLocal = this.getCategory(category.id);
     const categoryList = this.localStorageService.get('Category', []);
     let i: number, j: number;
     console.log(categoryLocal);
-    if (categoryLocal.name == '默认类别') {
+    
+    if (type == 0) {
       for (i = 0; i < categoryList.length; i++) {
         if (category.name == categoryList[i].name) {
           return new AjaxResult(false, null, {
@@ -206,6 +208,10 @@ export class CategoryService {
    * @memberof CategoryService
    */
   deleteCategory(id: number): boolean {
+    const categoryLocal = this.getCategory(id);
+    if(categoryLocal.name == "默认类别") {
+      return false;
+    }
     const categoryList = this.localStorageService.get('Category', []);
     let i: any;
     let j: any;

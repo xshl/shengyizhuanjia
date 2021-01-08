@@ -1,7 +1,7 @@
 import { SettingService } from './../../setting/setting.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { PassportServiceService } from './../shared/passport-service.service';
-import { ToastController, AlertController, IonRouterOutlet, NavController } from '@ionic/angular';
+import { ToastController, AlertController, IonRouterOutlet, NavController} from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -52,8 +52,9 @@ export class LoginPage implements OnInit {
           toast.present();
           this.settingService.onload();
           // this.outlet.pop(1);
-          this.navCtrl.pop();
-          this.router.navigateByUrl('/tabs/home');
+          // this.navCtrl.pop();
+          // this.router.navigateByUrl('/tabs/home');
+          this.navCtrl.navigateRoot(['/tabs/home']);
         } else {
           this.alertController.create({
             cssClass: 'oneBtn',

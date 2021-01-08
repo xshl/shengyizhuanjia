@@ -64,7 +64,7 @@ export class CategoryAddPage implements OnInit {
     const toast = await this.toastController.create({
       duration: 3000,
     });
-    this.categoryService.isUniqueName(this.category).then((res) => {
+    this.categoryService.isUniqueName(this.category, this.id).then((res) => {
       console.log(res);
       if(res.success) {
         if (this.id == 0) {

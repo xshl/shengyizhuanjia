@@ -78,12 +78,16 @@ export class CategoryEditPage implements OnInit {
             // 其他代码省略
             if (subId == null) {
               item.close();
-              this.categoryService.deleteCategory(this.category.id);
-              this.router.navigate(['/product/category/list'],{
-                queryParams: {
-                  id: 0
-                }
-              })
+              if (this.categoryService.deleteCategory(this.category.id)) {
+                toast.message = "删除成功";
+                this.router.navigate(['/product/category/list'],{
+                  queryParams: {
+                    id: 0
+                  }
+                })
+              } else {
+                toast.message = "默认分类不可删除";
+              }
             } else {
               item.close();
               this.categoryService.delteteChild(this.category, subId);
