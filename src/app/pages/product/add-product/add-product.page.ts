@@ -131,9 +131,9 @@ export class AddProductPage implements OnInit, OnDestroy {
             if (this.onPhoneValid(data.phone, data.name)) {
               this.product.supplier.name = data.name;
               this.product.supplier.phone = data.phone;
+              this.toastUtil('保存成功');
             } else {
-              toast.message = '电话格式错误或信息为空';
-              toast.present();
+              this.toastUtil('保存失败，电话格式错误或信息为空');
               return false;
             }
           }
@@ -156,7 +156,7 @@ export class AddProductPage implements OnInit, OnDestroy {
     if (name.match(/^\s*$/)) {
       return false;
     }
-    console.log(pat1.test(phone.toString()));
+    // console.log(pat1.test(phone.toString()));
     if (pat1.test(phone.toString()) || pat2.test(phone.toString())) {
       return true;
     } else {
@@ -230,6 +230,12 @@ export class AddProductPage implements OnInit, OnDestroy {
     toast = await this.toastController.create({
       duration: 3000
     });
+    if (this.product.importPrice == null) {
+      this.product.importPrice = 0;
+    }
+    if (this.product.StorageNum == null) {
+      this.product.StorageNum = 0;
+    }
     this.productService.insert(this.product).then((result) => {
       console.log(result);
       if (result.success === true) {
@@ -248,6 +254,15 @@ export class AddProductPage implements OnInit, OnDestroy {
         toast.present();
       }
     });
+  }
+
+  async toastUtil(message: string) {
+    let toast: any;
+    toast = await this.toastController.create({
+      duration: 3000,
+      message: message
+    });
+    toast.present();
   }
 
 }

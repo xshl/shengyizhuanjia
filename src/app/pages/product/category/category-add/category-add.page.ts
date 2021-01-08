@@ -48,8 +48,8 @@ export class CategoryAddPage implements OnInit {
    */
   onAddSubCategory() {
     const categorychild = new Category();
+    console.log(this.category);
     const lastChildId = this.category.children[this.category.children.length - 1].id;
-    console.log(lastChildId);
     categorychild.id = lastChildId + 1;
     categorychild.name = '';
     categorychild.children = [];

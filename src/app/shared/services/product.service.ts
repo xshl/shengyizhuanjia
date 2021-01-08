@@ -28,7 +28,7 @@ export class ProductService {
       images: [],
       price: null,
       importPrice: null,
-      StorageNum: 0,
+      StorageNum: null,
       supplier: {
         id: 0,
         name: null,

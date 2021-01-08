@@ -81,10 +81,10 @@
       </ion-item>
       <ion-item (click)="presentAlertPrompt()" detail>
         <ion-label position="fixed">供货商</ion-label>
+        <ion-input *ngIf="product.supplier.name != null" name="supplier" type="string">{{product.supplier.name}}
+        </ion-input>
         <ion-input *ngIf="product.supplier.name == null || product.supplier.name == ''" name="supplier"
           placeholder="商品供货商" type="string">
-        </ion-input>
-        <ion-input *ngIf="product.supplier.name != null" name="supplier" type="string">{{product.supplier.name}}
         </ion-input>
       </ion-item>
       <ion-item>

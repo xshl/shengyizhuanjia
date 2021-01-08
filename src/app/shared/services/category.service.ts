@@ -45,6 +45,9 @@ export class CategoryService {
       category.id = this.getCategoryLength();
       category.name = name;
       category.children = [];
+      categorychild.id = category.id * 10 + 1;
+      categorychild.name = '';
+      categorychild.children = [];
       category.children.push(categorychild);
     } else {
       category.id = id;
