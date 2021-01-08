@@ -1,4 +1,4 @@
-import { IonRouterOutlet, NavController } from '@ionic/angular';
+import { AlertController, IonRouterOutlet, NavController } from '@ionic/angular';
 import { LocalStorageService } from './../../shared/services/local-storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ export class SettingPage implements OnInit {
   version = '';
   constructor(private localstorageService: LocalStorageService,
               private outlet: IonRouterOutlet,
+              private alertController: AlertController,
               private router: Router,
               private nav: NavController,
               private navCtrl: NavController) { }
@@ -22,9 +23,31 @@ export class SettingPage implements OnInit {
     this.version = app.version;
   }
 
-  onLogout(){
+  async onLogout(){
     this.localstorageService.set('CurrentLogin', []);
-    this.navCtrl.navigateRoot(['/passport/login']);
+    const alert = await this.alertController.create({
+      header: '退出登录',
+      cssClass: 'twoBtn',
+      message: '您确定要退出登录吗？',
+      buttons: [
+        {
+          text: '取消',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: '确认',
+          handler: () => {
+            console.log('Confirm Okay');
+            // 其他代码省略
+            // this.navCtrl.navigateRoot(['/passport/login']);
+          }
+        }
+      ]
+    });
+    await alert.present();
     // this.router.navigateByUrl('/passport/login');
   }
 
