@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { Category } from 'src/app/shared/class/category';
-import { ActionSheetController } from '@ionic/angular';
+import { ActionSheetController, IonRouterOutlet } from '@ionic/angular';
 import { CategoryService } from 'src/app/shared/services/category.service';
 import { title } from 'process';
 import { Location } from '@angular/common';
@@ -24,7 +24,8 @@ export class CategoryListPage implements OnInit {
               private actionSheetController: ActionSheetController,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private location: Location) {
+              private location: Location,
+              private outlet: IonRouterOutlet) {
     this.loadData();
     activatedRoute.queryParams.subscribe(queryParams => {
       this.id = queryParams.id;
@@ -81,7 +82,8 @@ export class CategoryListPage implements OnInit {
       name: this.activeSubCategory.name,
     };
     this.categoryService.setActiveCategory(activeCategory);
-    this.location.back();
+    // this.location.back();
+    this.outlet.pop(1);
   }
 
   onSelect(){
@@ -90,7 +92,8 @@ export class CategoryListPage implements OnInit {
       name: this.activeCategory.name,
     };
     this.categoryService.setActiveCategory(activeCategory);
-    this.location.back();
+    // this.location.back();
+    this.outlet.pop(1);
   }
 
   /*

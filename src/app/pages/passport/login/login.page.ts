@@ -1,7 +1,7 @@
 import { SettingService } from './../../setting/setting.service';
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service';
 import { PassportServiceService } from './../shared/passport-service.service';
-import { ToastController, AlertController, IonRouterOutlet } from '@ionic/angular';
+import { ToastController, AlertController, IonRouterOutlet, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,7 +21,8 @@ export class LoginPage implements OnInit {
               private passportService: PassportServiceService,
               private outlet: IonRouterOutlet,
               private router: Router,
-              private settingService: SettingService) { }
+              private settingService: SettingService,
+              private navCtrl: NavController) { }
 
   ngOnInit() {
     this.username = this.passportService.getHistoryLogin();
@@ -50,7 +51,8 @@ export class LoginPage implements OnInit {
           toast.message = '登录成功';
           toast.present();
           this.settingService.onload();
-          this.outlet.pop(1);
+          // this.outlet.pop(1);
+          this.navCtrl.pop();
           this.router.navigateByUrl('/tabs/home');
         } else {
           this.alertController.create({
