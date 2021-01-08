@@ -54,7 +54,7 @@ export class AuthenticationCodeServiceService {
    * @memberof AuthenticationCodeServiceService
    */
   sendSms(phone: string): void {
-    this.deadline = Date.now() + 60 * 10 * 1000;
+    this.deadline = Date.now() + 60 * 1 * 1000;
     const strSig = 'appkey=' + '&random=' + this.strRand + '&time=' + this.now + '&mobile=' + phone;
     // let url = '/api' + '?sdkappid=' + this.sdkAppId + '&random=' + this.strRand;
     const url = 'https://yun.tim.qq.com/v5/tlssmssvr/sendsms?sdkappid=1400452227' + '&random=' + this.strRand;

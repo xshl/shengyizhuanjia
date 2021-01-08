@@ -165,7 +165,7 @@ export class SignupPage implements OnInit {
    */
   onSendSMS() {
     this.clickSendSMS = false;
-    this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
+    this.smsCode = this.authenticationCodeServiceService.createCode(4, 1);
     this.alertController.create({
       header: '警告',
       buttons: ['确定']
@@ -196,7 +196,7 @@ export class SignupPage implements OnInit {
 
   initCode() {
     this.clickSendSMS = true;
-    this.smsCode = this.authenticationCodeServiceService.createCode(4, 10);
+    this.smsCode = this.authenticationCodeServiceService.createCode(4, 1);
     this.codetimes = 0;
     this.timerTxt = '获取验证码';
     this.second = 60;

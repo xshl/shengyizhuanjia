@@ -34,7 +34,7 @@ export class StartAppGuard implements CanActivate {
       const nowTime = new Date();
       // console.log('pastTime' + loginTime);
       // console.log('nowTime' + nowTime);
-      if (loginTime.getTime() + 5 * 24 * 3600 * 1000 >= nowTime.getTime()) {
+      if (loginTime.getTime() + 5 * 60 * 1000 >= nowTime.getTime()) {
         this.passportService.updateLoginTime();
         this.router.navigateByUrl('tabs/home');
       } else {

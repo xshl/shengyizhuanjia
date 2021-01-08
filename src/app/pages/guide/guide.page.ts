@@ -33,7 +33,7 @@ export class GuidePage implements OnInit {
     } else if (currentLogin.length !== 0) {
       const loginTime = new Date(currentLogin.loginTime);
       const nowTime = new Date();
-      if (loginTime.getTime() + 5 * 24 * 3600 * 1000 >= nowTime.getTime()) {
+      if (loginTime.getTime() + 5 * 60 * 1000 >= nowTime.getTime()) {
         this.passportService.updateLoginTime();
         this.router.navigateByUrl('tabs/home');
       } else {
