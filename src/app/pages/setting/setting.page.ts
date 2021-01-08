@@ -24,7 +24,6 @@ export class SettingPage implements OnInit {
   }
 
   async onLogout(){
-    this.localstorageService.set('CurrentLogin', []);
     const alert = await this.alertController.create({
       header: '退出登录',
       cssClass: 'twoBtn',
@@ -42,7 +41,8 @@ export class SettingPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             // 其他代码省略
-            // this.navCtrl.navigateRoot(['/passport/login']);
+            this.localstorageService.set('CurrentLogin', []);
+            this.navCtrl.navigateRoot(['/passport/login']);
           }
         }
       ]
