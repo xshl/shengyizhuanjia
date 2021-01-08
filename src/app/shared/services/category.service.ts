@@ -306,6 +306,22 @@ export class CategoryService {
     return new AjaxResult(true, null);
   }
 
+  getCategoryNameById(categoryId: number) :string {
+    const categotyList = this.localStorageService.get("Category", []);
+    for(const category of categotyList) {
+      if (category.id == categoryId) {
+        return category.name;
+      } else {
+        for(const child of category.children) {
+          if (child.id == categoryId) {
+            return child.name;
+          }
+        }
+      }
+    }
+    return null;
+  }
+
   watchCategory():Observable<ActiveCategory>{
     return this.activeCategory.asObservable();
   }

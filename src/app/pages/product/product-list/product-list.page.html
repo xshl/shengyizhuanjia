@@ -42,6 +42,9 @@
         <ion-button fill="outline" color="syzj" size="small">商品盘点</ion-button>
       </ion-buttons>
     </ion-toolbar>
+    <ion-item *ngIf="isBackFromCategoryList">
+      <ion-label class="total" color="medium">现在显示的分类是：{{categoryName}}</ion-label>
+    </ion-item>
     <ion-item>
       <ion-text class="total" color="medium">总正库存<span>{{totalStorageNum}}</span>件，总成本<span>{{[totalPrice | number:'1.2-2']}}</span>元</ion-text>
       <ion-buttons slot="end">

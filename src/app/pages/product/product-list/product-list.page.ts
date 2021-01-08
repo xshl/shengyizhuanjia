@@ -27,6 +27,7 @@ export class ProductListPage implements OnInit {
   private isAddProduct: boolean;    // 是否在当前页面点击新增商品
   private productCount: number;
   private isBackFromCategoryList: boolean;
+  private categoryName: string;
 
   
   subscription: Subscription;
@@ -41,6 +42,7 @@ export class ProductListPage implements OnInit {
     this.productCount = 0;
     this.isBackFromCategoryList = false;
     this.isAddProduct = false;
+    this.categoryName = "";
     this.subscription = categoryService.watchCategory().subscribe( //use subscribe 
       (activeCategory) => {
         console.log('返回');
@@ -195,6 +197,7 @@ export class ProductListPage implements OnInit {
    */
   getListByCategoryId(){
     this.currentIndex = 0;
+    this.categoryName = this.categoryService.getCategoryNameById(this.categoryId);
     this.productService.getListByCategoryId(this.categoryId).then((res) => {
       if (res.success) {
         console.log(res);
