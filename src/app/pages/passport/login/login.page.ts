@@ -49,8 +49,8 @@ export class LoginPage implements OnInit {
         if (res.success) {
           toast.message = '登录成功';
           toast.present();
-          this.outlet.pop(1);
           this.settingService.onload();
+          this.outlet.pop(1);
           this.router.navigateByUrl('/tabs/home');
         } else {
           this.alertController.create({
